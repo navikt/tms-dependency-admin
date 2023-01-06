@@ -117,4 +117,4 @@ PULL_REQUEST_PAYLOAD=$(jq -n -c \
                        '{ title: $title, head: $head, base: $base }'
 )
 
-curl -s -X POST -u "$API_ACCESS_TOKEN:" --data "$PUSH_COMMIT_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/pulls"
+curl -s -X POST -u "$API_ACCESS_TOKEN:" --data "$PULL_REQUEST_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/pulls"

@@ -2,7 +2,7 @@
 
 ## Add 'navikt/..' to included repositories unless different owner is specified
 if [[ ! -z $INCLUDE ]]; then
-  REPOSITORIES=$(echo "$INCLUDE" | tr ' ' '\n' | sed 's/\(^[^\/]*$\)/navikt\/\1/g')
+  REPOSITORIES=$(echo "$INCLUDE" | sed 's/\(^[^\/]*$\)/navikt\/\1/g')
 fi
 
 ## Sort and filter duplicates

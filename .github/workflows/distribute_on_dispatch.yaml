@@ -16,7 +16,7 @@ jobs:
 
       - name: Read list of managed apps
         run: |
-          echo "MANAGED_APPS=$(cat ./config/managed_apps.conf | tr '\n' ' ')" >> $GITHUB_ENV
+          echo "MANAGED_APPS=$(cat ./config/managed_apps.conf)" >> $GITHUB_ENV
 
       - name: Distribute dependencies
         run: |
