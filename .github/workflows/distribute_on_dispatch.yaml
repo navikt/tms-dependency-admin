@@ -1,0 +1,27 @@
+name: Publiser default depdendency config
+
+on:
+  repository_dispatch:
+    types: distribute-dependencies
+
+env:
+  DRY_RUN: ${{ github.event.client_payload.dry_run }}
+
+jobs:
+  build-and-publish-on-main:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Read list of managed apps
+        run: |
+          echo "MANAGED_APPS=$(cat ./config/managed_apps.conf | tr '\n' ' ')" >> $GITHUB_ENV
+
+      - name: Distribute dependencies
+        run: |
+          cd ./script
+          ./distribute_workflows.sh
+        env:
+          API_ACCESS_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
+          INCLUDE: ${{ env.MANAGED_APPS }}
