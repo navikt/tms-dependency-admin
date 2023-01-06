@@ -24,6 +24,8 @@ function dependencyGroupsNode {
     )
 }
 
+echo distributing for $REPOSITORY
+
 ## Get name of main branch
 MAIN_BRANCH=$(curl -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY" | jq -r '.default_branch')
 
@@ -66,6 +68,8 @@ if [[ $UPDATE_DEPENDENCY_FILE == 'false' && $UPDATE_GROUPS_FILE == 'false' ]]; t
 fi
 
 TREE_NODES="[$(defaultDependenciesNode),$(dependencyGroupsNode)]"
+
+echo tree nodes $TREE_NODES
 
 ## Create new tree on remote and keep its ref
 CREATE_TREE_PAYLOAD=$(jq -n -c \
