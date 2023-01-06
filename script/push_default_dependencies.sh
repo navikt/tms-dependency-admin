@@ -94,7 +94,7 @@ BRANCH_NAME="tms-dependency-admin_$SHORT_SHA"
 
 ## Create branch
 CREATE_BRANCH_PAYLOAD=$(jq -n -c \
-                      --arg ref refs/head/$BRANCH_NAME \
+                      --arg ref "refs/heads/$BRANCH_NAME" \
                       --arg sha $BASE_TREE_SHA \
                       '{ ref: $ref, sha: $sha }'
 )
