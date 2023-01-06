@@ -2,8 +2,6 @@
 
 export REPOSITORY=$1
 IFS=
-SOURCE_FOLDER=$2
-FILES_TO_DELETE=$3
 
 DEPENDENCIES_FILE_LOCATION="buildSrc/src/main/kotlin/default/dependencies.kt"
 GROUPS_FILE_LOCATION="buildSrc/src/main/kotlin/groups.kt"
@@ -29,11 +27,17 @@ function dependencyGroupsNode {
 ## Get name of main branch
 MAIN_BRANCH=$(curl -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY" | jq -r '.default_branch')
 
+echo main branch $MAIN_BRANCH
+
 ## Get latest commit sha on main
 export BASE_TREE_SHA=$(curl -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY/git/refs/heads/$MAIN_BRANCH" | jq -r '.object.sha')
 
+echo base tree $BASE_TREE_SHA
+
 ## Find existing files in buildSrc folder
 BUILD_SRC_CONTENTS=$(curl -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY/git/trees/$BASE_TREE_SHA?recursive=1" | jq -r '.tree[] | select(.path | startswith("buildSrc"))')
+
+echo buildSrc contents $BUILD_SRC_CONTENTS
 
 ## Find file versions
 LOCAL_DEPENDENCY_FILE_VERSION=$(git hash-object "../$DEPENDENCIES_FILE_LOCATION")

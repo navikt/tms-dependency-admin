@@ -13,6 +13,6 @@ for repository in $REPOSITORIES; do
   if [[ $repository == $GITHUB_REPOSITORY ]]; then
     echo "Should not distribute files to same repository. Skipping $repository"
   else
-    ./push_default_dependencies.sh $repository ../buildSrc
+    ./push_default_dependencies.sh $repository
   fi
 done
