@@ -24,8 +24,6 @@ function dependencyGroupsNode {
     )
 }
 
-echo distributing for $REPOSITORY
-
 ## Get name of main branch
 MAIN_BRANCH=$(curl -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY" | jq -r '.default_branch')
 
@@ -71,8 +69,6 @@ CREATE_TREE_PAYLOAD=$(jq -n -c \
 
 CREATE_TREE_PAYLOAD=$(echo $CREATE_TREE_PAYLOAD | jq -c '.tree = '"$TREE_NODES")
 
-echo create tree $CREATE_TREE_PAYLOAD
-
 UPDATED_TREE_SHA=$(curl -s -X POST -u "$API_ACCESS_TOKEN:" --data "$CREATE_TREE_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/git/trees" | jq -r '.sha')
 
 
@@ -91,8 +87,6 @@ CREATE_COMMIT_PAYLOAD=$(jq -n -c \
 )
 
 CREATE_COMMIT_PAYLOAD=$(echo $CREATE_COMMIT_PAYLOAD | jq -c '.parents = ["'"$BASE_TREE_SHA"'"]')
-
-echo create commit $CREATE_COMMIT_PAYLOAD
 
 UPDATED_COMMIT_SHA=$(curl -s -X POST -u "$API_ACCESS_TOKEN:" --data "$CREATE_COMMIT_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/git/commits" | jq -r '.sha')
 
