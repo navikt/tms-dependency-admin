@@ -98,6 +98,15 @@ UPDATED_COMMIT_SHA=$(curl -s -X POST -u "$API_ACCESS_TOKEN:" --data "$CREATE_COM
 
 BRANCH_NAME="tms-dependency-admin_$SHORT_SHA"
 
+## Create branch
+CREATE_BRANCH_PAYLOAD=$(jq -n -c \
+                      --arg ref refs/head/$BRANCH_NAME \
+                      --arg sha $BASE_TREE_SHA \
+                      '{ ref: $ref, sha: $sha }'
+)
+
+curl -s -X POST -u "$API_ACCESS_TOKEN:" --data "$CREATE_BRANCH_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/git/refs"
+
 ## Push new commit
 PUSH_COMMIT_PAYLOAD=$(jq -n -c \
                       --arg sha $UPDATED_COMMIT_SHA \
@@ -105,9 +114,6 @@ PUSH_COMMIT_PAYLOAD=$(jq -n -c \
 )
 
 HEAD_SHA=$(curl -s -X PATCH -u "$API_ACCESS_TOKEN:" --data "$PUSH_COMMIT_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/git/refs/heads/$BRANCH_NAME" | jq -r '.object.sha')
-
-echo BRANCH_NAME $BRANCH_NAME
-echo MAIN_BRANCH $MAIN_BRANCH
 
 ## Create PR
 PULL_REQUEST_PAYLOAD=$(jq -n -c \
