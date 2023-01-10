@@ -107,14 +107,4 @@ PUSH_COMMIT_PAYLOAD=$(jq -n -c \
                       '{ sha: $sha, force: false }'
 )
 
-HEAD_SHA=$(curl -s -X PATCH -u "$API_ACCESS_TOKEN:" --data "$PUSH_COMMIT_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/git/refs/heads/$BRANCH_NAME" | jq -r '.object.sha')
-
-## Create PR
-PULL_REQUEST_PAYLOAD=$(jq -n -c \
-                       --arg title "Request to update dependencies" \
-                       --arg head $BRANCH_NAME \
-                       --arg base $MAIN_BRANCH \
-                       '{ title: $title, head: $head, base: $base }'
-)
-
-curl -s -X POST -u "$API_ACCESS_TOKEN:" --data "$PULL_REQUEST_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/pulls"
+curl -s -X PATCH -u "$API_ACCESS_TOKEN:" --data "$PUSH_COMMIT_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/git/refs/heads/$BRANCH_NAME" | jq -r '.object.sha'
