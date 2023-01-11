@@ -180,7 +180,7 @@ interface KotlinxDefaults: DependencyGroup {
 
 interface KotliQueryDefaults: DependencyGroup {
     override val groupId get() = "com.github.seratch"
-    override val version get() = "1.9.0get() "
+    override val version get() = "1.9.0"
 
     val kotliquery get() = dependency("kotliquery")
 }
