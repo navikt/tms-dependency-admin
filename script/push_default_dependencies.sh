@@ -55,8 +55,10 @@ fi
 
 ## Add files to tree
 if [[ $UPDATE_DEPENDENCY_FILE == 'false' && $UPDATE_GROUPS_FILE == 'false' ]]; then
-  echo 'No changes necessary'
+  echo "No changes necessary for [$REPOSITORY]"
   exit 0
+else
+  echo "Updating [$REPOSITORY]..."
 fi
 
 TREE_NODES="[$(defaultDependenciesNode),$(dependencyGroupsNode)]"
