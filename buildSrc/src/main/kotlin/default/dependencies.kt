@@ -316,7 +316,7 @@ interface RapidsAndRiversDefaults: DependencyGroup {
 interface ShadowDefaults: DependencyGroup {
     override val version get() = "7.1.2"
 
-    val pluginId get() = "com.github.johnrengelman.shadow:$version"
+    val pluginId get() = "com.github.johnrengelman.shadow"
 }
 
 interface SulkyUlidDefaults: DependencyGroup {
