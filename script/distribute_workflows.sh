@@ -8,7 +8,7 @@ fi
 ## Sort and filter duplicates
 REPOSITORIES=$(echo -e "$REPOSITORIES" | sort | uniq)
 
-## Distribute files for each project
+## Distribute file for each project
 for repository in $REPOSITORIES; do
   if [[ $repository == $GITHUB_REPOSITORY ]]; then
     echo "Should not distribute files to same repository. Skipping $repository"

@@ -26,7 +26,7 @@ REMOTE_WORKFLOW_VERSION=$(curl -s -u "$API_ACCESS_TOKEN:" "https://api.github.co
 
 LOCAL_WORKFLOW_VERSION=$(git hash-object "$LOCAL_WORKFLOW_LOCATION")
 
-## Check if files are missing or out of date
+## Check if file is missing or out of date
 if [[ -z $REMOTE_WORKFLOW_VERSION || $REMOTE_WORKFLOW_VERSION != $LOCAL_WORKFLOW_VERSION ]]; then
   UPDATE_WORKFLOW_FILE='true'
 else
