@@ -22,7 +22,7 @@ MAIN_BRANCH=$(curl -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REP
 export BASE_TREE_SHA=$(curl -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY/git/refs/heads/$MAIN_BRANCH" | jq -r '.object.sha')
 
 ## Find version for remote workflow file if exists
-REMOTE_WORKFLOW_VERSION=$(curl -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY/git/trees/$BASE_TREE_SHA?recursive=1" | jq -r ".tree[] | select(.path == '$REMOTE_WORKFLOW_LOCATION').sha")
+REMOTE_WORKFLOW_VERSION=$(curl -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY/git/trees/$BASE_TREE_SHA?recursive=1" | jq -r ".tree[] | select(.path == \"$REMOTE_WORKFLOW_LOCATION\").sha")
 
 LOCAL_WORKFLOW_VERSION=$(git hash-object "$LOCAL_WORKFLOW_LOCATION")
 
