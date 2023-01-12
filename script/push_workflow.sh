@@ -26,9 +26,6 @@ REMOTE_WORKFLOW_VERSION=$(curl -s -u "$API_ACCESS_TOKEN:" "https://api.github.co
 
 LOCAL_WORKFLOW_VERSION=$(git hash-object "$LOCAL_WORKFLOW_LOCATION")
 
-echo remote $REMOTE_WORKFLOW_VERSION
-echo local $LOCAL_WORKFLOW_VERSION
-
 ## Check if file is missing or out of date
 if [[ -z $REMOTE_WORKFLOW_VERSION || $REMOTE_WORKFLOW_VERSION != $LOCAL_WORKFLOW_VERSION ]]; then
   UPDATE_WORKFLOW_FILE='true'
@@ -81,3 +78,10 @@ PUSH_COMMIT_PAYLOAD=$(jq -n -c \
 )
 
 curl -s -X PATCH -u "$API_ACCESS_TOKEN:" --data "$PUSH_COMMIT_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/git/refs/heads/$MAIN_BRANCH" > /dev/null
+
+
+echo DEBUG
+echo tree $TREE_NODE
+echo create tree $CREATE_TREE_PAYLOAD
+echo create commit $CREATE_COMMIT_PAYLOAD
+echo push commit $PUSH_COMMIT_PAYLOAD
