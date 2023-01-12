@@ -26,6 +26,9 @@ REMOTE_WORKFLOW_VERSION=$(curl -s -u "$API_ACCESS_TOKEN:" "https://api.github.co
 
 LOCAL_WORKFLOW_VERSION=$(git hash-object "$LOCAL_WORKFLOW_LOCATION")
 
+echo remote $REMOTE_WORKFLOW_VERSION
+echo local $LOCAL_WORKFLOW_VERSION
+
 ## Check if file is missing or out of date
 if [[ -z $REMOTE_WORKFLOW_VERSION || $REMOTE_WORKFLOW_VERSION != $LOCAL_WORKFLOW_VERSION ]]; then
   UPDATE_WORKFLOW_FILE='true'
@@ -35,6 +38,7 @@ fi
 
 ## Add files to tree
 if [[ $UPDATE_WORKFLOW_FILE == 'false' ]]; then
+  echo "No workflow changes necessary for [$REPOSITORY]"
   exit 0
 else
   echo "Updating worfklow file for [$REPOSITORY]..."
@@ -52,10 +56,9 @@ CREATE_TREE_PAYLOAD=$(echo $CREATE_TREE_PAYLOAD | jq -c '.tree = '"$TREE_NODE")
 
 UPDATED_TREE_SHA=$(curl -s -X POST -u "$API_ACCESS_TOKEN:" --data "$CREATE_TREE_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/git/trees" | jq -r '.sha')
 
-
 SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-7)
 
-COMMIT_MESSAGE="Automated update for depdendency workflow file"
+COMMIT_MESSAGE="Automated update for dependency workflow file"
 
 ## Create commit based on new tree, keep new tree ref
 CREATE_COMMIT_PAYLOAD=$(jq -n -c \
