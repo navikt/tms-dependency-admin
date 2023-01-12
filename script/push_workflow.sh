@@ -9,8 +9,8 @@ REMOTE_WORKFLOW_LOCATION='.github/workflows/verify_distributed_dependencies.yaml
 ## Workflow file
 function workflowFileNode {
   echo $(jq -n -c \
-              --arg path $LOCAL_LOCAL_WORKFLOW_LOCATION \
-              --rawfile content $REMOTE_WORKFLOW_LOCATION \
+              --arg path $REMOTE_WORKFLOW_LOCATION \
+              --rawfile content $LOCAL_WORKFLOW_LOCATION \
               '{ path: $path, mode: "100644", type: "blob", content: $content }'
   )
 }
@@ -34,13 +34,13 @@ else
 fi
 
 ## Add files to tree
-if [[ $UPDATE_DEPENDENCY_FILE == 'false' && $UPDATE_GROUPS_FILE == 'false' ]]; then
+if [[ $UPDATE_WORKFLOW_FILE == 'false' ]]; then
   exit 0
 else
   echo "Updating worfklow file for [$REPOSITORY]..."
 fi
 
-TREE_NODES="[$(workflowFileNode)]"
+TREE_NODE="[$(workflowFileNode)]"
 
 ## Create new tree on remote and keep its ref
 CREATE_TREE_PAYLOAD=$(jq -n -c \
@@ -48,7 +48,7 @@ CREATE_TREE_PAYLOAD=$(jq -n -c \
                       '{ base_tree: $base_tree, tree: [] }'
 )
 
-CREATE_TREE_PAYLOAD=$(echo $CREATE_TREE_PAYLOAD | jq -c '.tree = '"$TREE_NODES")
+CREATE_TREE_PAYLOAD=$(echo $CREATE_TREE_PAYLOAD | jq -c '.tree = '"$TREE_NODE")
 
 UPDATED_TREE_SHA=$(curl -s -X POST -u "$API_ACCESS_TOKEN:" --data "$CREATE_TREE_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/git/trees" | jq -r '.sha')
 
