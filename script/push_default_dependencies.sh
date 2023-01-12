@@ -82,7 +82,7 @@ COMMIT_MESSAGE=$(git log -1 --pretty=%B)
 CREATE_COMMIT_PAYLOAD=$(jq -n -c \
                         --arg message $COMMIT_MESSAGE \
                         --arg tree $UPDATED_TREE_SHA \
-                        --arg name "Team min-side dependency admin" \
+                        --arg name "Dependency Admin" \
                         --arg email "personbruker@nav.no" \
                         --arg date "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
                         '{ tree: $tree, message: $message, author: { name: $name, email: $email, date: $date }, parents: [] }'

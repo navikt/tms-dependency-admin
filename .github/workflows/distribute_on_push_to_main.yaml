@@ -1,8 +1,13 @@
 name: Publiser default depdendency config
 
 on:
-  repository_dispatch:
-    types: distribute-dependencies
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/distributed/**
+      - buildSrc/src/main/kotlin/default/dependencies.kt
+      - buildSrc/src/main/kotlin/groups.kt
 
 env:
   DRY_RUN: ${{ github.event.client_payload.dry_run }}
@@ -12,11 +17,19 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Read list of managed apps
         run: |
           echo "MANAGED_APPS=$(cat ./config/managed_apps.conf)" >> $GITHUB_ENV
+
+      - name: Update remote workflow
+        run: |
+          cd ./script
+          ./distribute_workflows.sh
+        env:
+          API_ACCESS_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
+          INCLUDE: ${{ env.MANAGED_APPS }}
 
       - name: Distribute dependencies
         run: |
