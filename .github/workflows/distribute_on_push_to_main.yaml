@@ -1,4 +1,4 @@
-name: Publiser default depdendency config
+name: Publiser default dedendency config
 
 on:
   push:
