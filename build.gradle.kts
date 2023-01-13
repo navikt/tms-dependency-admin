@@ -7,9 +7,6 @@ plugins {
 
 repositories {
     mavenCentral()
-    maven("https://packages.confluent.io/maven")
-    maven ( "https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven" )
-    maven("https://jitpack.io")
 }
 
 dependencies {
