@@ -70,7 +70,7 @@ interface FlywayDefaults: DependencyGroup {
     override val version get() = "6.5.7"
 
     val pluginId get() = "org.flywaydb.flyway"
-    val core get() = "org.flywaydb:flyway-core"
+    val core get() = dependency("flyway-core")
 }
 
 interface GraphQLDefaults: DependencyGroup {
@@ -87,14 +87,14 @@ interface H2DatabaseDefaults: DependencyGroup {
     override val groupId get() = "com.h2database"
     override val version get() = "1.4.200"
 
-    val h2 get() = dependency("com.h2database:h2")
+    val h2 get() = dependency("h2")
 }
 
 interface HikariDefaults: DependencyGroup {
     override val groupId get() = "com.zaxxer"
     override val version get() = "3.4.5"
 
-    val cp get() = dependency("com.zaxxer:HikariCP")
+    val cp get() = dependency("HikariCP")
 }
 
 interface InfluxdbDefaults: DependencyGroup {
@@ -248,8 +248,8 @@ object Ktor2Defaults {
         override val groupId get() = Ktor2Defaults.groupId
         override val version get() = Ktor2Defaults.version
 
-        val clientMock get() = dependency("io.ktor:ktor-client-mock")
-        val serverTestHost get() = dependency("io.ktor:ktor-server-test-host")
+        val clientMock get() = dependency("ktor-client-mock")
+        val serverTestHost get() = dependency("ktor-server-test-host")
     }
 }
 
@@ -278,7 +278,7 @@ interface MockkDefaults: DependencyGroup {
     override val groupId get() = "io.mockk"
     override val version get() = "1.12.2"
 
-    val mockk get() = dependency("io.mockk:mockk")
+    val mockk get() = dependency("mockk")
 }
 
 interface NAVDefaults {
