@@ -4,37 +4,69 @@ on:
   push:
     branches:
       - main
+      - polish
     paths:
       - .github/workflows/distributed/**
+      - .github/workflows/**
       - buildSrc/src/main/kotlin/default/dependencies.kt
       - buildSrc/src/main/kotlin/groups.kt
 
-env:
-  DRY_RUN: ${{ github.event.client_payload.dry_run }}
-
 jobs:
-  build-and-publish-on-main:
+  setup-for-distribution:
     runs-on: ubuntu-20.04
+    outputs:
+      managed-apps: ${{ steps.read-apps.outputs.MANAGED_APPS }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Read list of managed apps
+      - name: Validate token
         run: |
-          echo "MANAGED_APPS=$(cat ./config/managed_apps.conf)" >> $GITHUB_ENV
+          ./script/validate_token.sh
+        env:
+          API_ACCESS_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
+
+      - name: Read list of managed apps
+        id: read-apps
+        run: |
+          MANAGED_APPS=$(cat ./config/managed_apps.conf | jq -Rsc 'split("\n") | map(select(. != ""))')
+          echo "MANAGED_APPS=$MANAGED_APPS" >> $GITHUB_OUTPUT
+
+  distribute-dependencies:
+    name: ${{ matrix.managed-app }}
+    runs-on: ubuntu-20.04
+    needs:
+      - setup-for-distribution
+    strategy:
+      matrix:
+        managed-app: ${{ fromJson(needs.setup-for-distribution.outputs.managed-apps) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Validate remote dependency and setup env
+        run: |
+          ./script/setup_repository.sh
+        env:
+          MANAGED_APP: ${{ matrix.managed-app }}
+          API_ACCESS_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
 
       - name: Update remote workflow
         run: |
           cd ./script
-          ./distribute_workflows.sh
+          ./push_workflow.sh
         env:
           API_ACCESS_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
-          INCLUDE: ${{ env.MANAGED_APPS }}
+          REPOSITORY: ${{ env.REPOSITORY }}
+          MAIN_BRANCH: ${{ env.MAIN_BRANCH }}
+          LATEST_COMMIT_SHA: ${{ env.LATEST_COMMIT_SHA }}
 
       - name: Distribute dependencies
         run: |
           cd ./script
-          ./distribute_default_dependencies.sh
+          ./push_default_dependencies.sh
         env:
           API_ACCESS_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
-          INCLUDE: ${{ env.MANAGED_APPS }}
+          REPOSITORY: ${{ env.REPOSITORY }}
+          MAIN_BRANCH: ${{ env.MAIN_BRANCH }}
+          LATEST_COMMIT_SHA: ${{ env.LATEST_COMMIT_SHA }}

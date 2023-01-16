@@ -1,4 +1,4 @@
-name: Publiser default dependency config dispatch
+name: Publiser til bestemt repo
 
 on:
   workflow_dispatch:
@@ -12,24 +12,41 @@ env:
   DRY_RUN: ${{ github.event.client_payload.dry_run }}
 
 jobs:
-  build-and-publish-on-main:
+  publish-dependencies-to-requested-repository:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Validate token
+        run: |
+          ./script/validate_token.sh
+        env:
+          API_ACCESS_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
+
+      - name: Validate remote dependency and setup env
+        run: |
+          ./script/setup_repository.sh
+        env:
+          MANAGED_APP: ${{ inputs.repository }}
+          API_ACCESS_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
+
       - name: Update remote workflow
         run: |
           cd ./script
-          ./distribute_workflows.sh
+          ./push_workflow.sh
         env:
           API_ACCESS_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
-          INCLUDE: ${{ inputs.repository }}
+          REPOSITORY: ${{ env.REPOSITORY }}
+          MAIN_BRANCH: ${{ env.MAIN_BRANCH }}
+          LATEST_COMMIT_SHA: ${{ env.LATEST_COMMIT_SHA }}
 
       - name: Distribute dependencies
         run: |
           cd ./script
-          ./distribute_default_dependencies.sh
+          ./push_default_dependencies.sh
         env:
           API_ACCESS_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
-          INCLUDE: ${{ inputs.repository }}
+          REPOSITORY: ${{ env.REPOSITORY }}
+          MAIN_BRANCH: ${{ env.MAIN_BRANCH }}
+          LATEST_COMMIT_SHA: ${{ env.LATEST_COMMIT_SHA }}

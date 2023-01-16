@@ -1,6 +1,5 @@
 #!/bin/bash
 
-export REPOSITORY=$1
 IFS=
 
 DEPENDENCIES_FILE_LOCATION="buildSrc/src/main/kotlin/default/dependencies.kt"
@@ -24,14 +23,8 @@ function dependencyGroupsNode {
     )
 }
 
-## Get name of main branch
-MAIN_BRANCH=$(curl -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY" | jq -r '.default_branch')
-
-## Get latest commit sha on main
-export BASE_TREE_SHA=$(curl -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY/git/refs/heads/$MAIN_BRANCH" | jq -r '.object.sha')
-
 ## Find existing files in buildSrc folder
-BUILD_SRC_CONTENTS=$(curl -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY/git/trees/$BASE_TREE_SHA?recursive=1" | jq -r '.tree[] | select(.path | startswith("buildSrc"))')
+BUILD_SRC_CONTENTS=$(curl -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY/git/trees/$LATEST_COMMIT_SHA?recursive=1" | jq -r '.tree[] | select(.path | startswith("buildSrc"))')
 
 ## Find file versions
 LOCAL_DEPENDENCY_FILE_VERSION=$(git hash-object "../$DEPENDENCIES_FILE_LOCATION")
@@ -65,7 +58,7 @@ TREE_NODES="[$(defaultDependenciesNode),$(dependencyGroupsNode)]"
 
 ## Create new tree on remote and keep its ref
 CREATE_TREE_PAYLOAD=$(jq -n -c \
-                      --arg base_tree $BASE_TREE_SHA \
+                      --arg base_tree $LATEST_COMMIT_SHA \
                       '{ base_tree: $base_tree, tree: [] }'
 )
 
@@ -88,7 +81,7 @@ CREATE_COMMIT_PAYLOAD=$(jq -n -c \
                         '{ tree: $tree, message: $message, author: { name: $name, email: $email, date: $date }, parents: [] }'
 )
 
-CREATE_COMMIT_PAYLOAD=$(echo $CREATE_COMMIT_PAYLOAD | jq -c '.parents = ["'"$BASE_TREE_SHA"'"]')
+CREATE_COMMIT_PAYLOAD=$(echo $CREATE_COMMIT_PAYLOAD | jq -c '.parents = ["'"$LATEST_COMMIT_SHA"'"]')
 
 UPDATED_COMMIT_SHA=$(curl -s -X POST -u "$API_ACCESS_TOKEN:" --data "$CREATE_COMMIT_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/git/commits" | jq -r '.sha')
 
@@ -97,7 +90,7 @@ BRANCH_NAME="tms-dependency-admin_$SHORT_SHA"
 ## Create branch
 CREATE_BRANCH_PAYLOAD=$(jq -n -c \
                       --arg ref "refs/heads/$BRANCH_NAME" \
-                      --arg sha $BASE_TREE_SHA \
+                      --arg sha $LATEST_COMMIT_SHA \
                       '{ ref: $ref, sha: $sha }'
 )
 
@@ -109,4 +102,6 @@ PUSH_COMMIT_PAYLOAD=$(jq -n -c \
                       '{ sha: $sha, force: false }'
 )
 
-curl -s -X PATCH -u "$API_ACCESS_TOKEN:" --data "$PUSH_COMMIT_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/git/refs/heads/$BRANCH_NAME" | jq -r '.object.sha'
+BRANCH_SHA=$(curl -s -X PATCH -u "$API_ACCESS_TOKEN:" --data "$PUSH_COMMIT_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/git/refs/heads/$BRANCH_NAME" | jq -r '.object.sha')
+
+echo "Branch $BRANCH_NAME is now on commit $BRANCH_SHA"
