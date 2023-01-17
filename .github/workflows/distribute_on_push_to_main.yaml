@@ -4,10 +4,8 @@ on:
   push:
     branches:
       - main
-      - polish
     paths:
       - .github/workflows/distributed/**
-      - .github/workflows/**
       - buildSrc/src/main/kotlin/default/dependencies.kt
       - buildSrc/src/main/kotlin/groups.kt
 
