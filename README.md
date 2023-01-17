@@ -2,6 +2,13 @@
 
 #### Dette prosjektet brukes til å definere og distribuere kotlin-dependencies for Team min-sides prosjekter 
 
+## Access token
+
+Dette repoet krever et github personal access-token med scopes `repo` og `workflow`. 
+
+Dette settes som en [actions-secret](https://github.com/navikt/tms-dependency-admin/settings/secrets/actions) i variablen `API_ACCESS_TOKEN`.
+
+
 ## Organisering av dependencies
 
 Definer et sett med dependencies innen samme gruppe eller område som et interface i `buildSrc/src/main/kotlin/default/dependencies.kt`
