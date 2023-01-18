@@ -35,7 +35,7 @@ for branch in $MANAGED_BRANCHES; do
   if [[ $branch == $BRANCH_NAME ]]; then
     BRANCH_EXISTS='true'
     continue
-  fi
+  fi;
 
   curl -X DELETE -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY/refs/heads/$branch"
 done
