@@ -31,14 +31,14 @@ ALL_BRANCHES=$(curl -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$RE
 
 MANAGED_BRANCHES=$(echo $ALL_BRANCHES | jq -r '.[] | select(.name | startswith("tms-dependency-admin_")) | .name')
 
-for branch in $MANAGED_BRANCHES; do
+while read -r branch; do
   if [[ $branch == $BRANCH_NAME ]]; then
     BRANCH_EXISTS='true'
     continue
   fi
 
-  curl -X DELETE -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY/refs/heads/$branch"
-done
+  curl -X DELETE -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY/git/refs/heads/$branch"
+done <<< "$MANAGED_BRANCHES"
 
 if [[ $BRANCH_EXISTS == 'true' ]]; then
   echo "Branch med ønskede endringer finnes allerede for repo $REPOSITORY.."
