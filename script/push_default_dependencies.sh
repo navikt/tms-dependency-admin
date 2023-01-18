@@ -35,7 +35,7 @@ for branch in $MANAGED_BRANCHES; do
   if [[ $branch == $BRANCH_NAME ]]; then
     BRANCH_EXISTS='true'
     continue
-  fi;
+  fi
 
   curl -X DELETE -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY/refs/heads/$branch"
 done
@@ -43,7 +43,7 @@ done
 if [[ $BRANCH_EXISTS == 'true' ]]; then
   echo "Branch med ønskede endringer finnes allerede for repo $REPOSITORY.."
   exit 0
-done
+fi
 
 
 ## Find existing files in buildSrc folder
