@@ -32,7 +32,7 @@ ALL_BRANCHES=$(curl -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$RE
 MANAGED_BRANCHES=$(echo $ALL_BRANCHES | jq -r '.[] | select(.name | startswith("tms-dependency-admin_")) | .name')
 
 for branch in $MANAGED_BRANCHES; do
-  if [[ $branch == $BRANCH_NAME ]];
+  if [[ $branch == $BRANCH_NAME ]]; then
     BRANCH_EXISTS='true'
     continue
   fi
