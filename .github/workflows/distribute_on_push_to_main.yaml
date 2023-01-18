@@ -1,6 +1,7 @@
 name: Publiser default dedendency config
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
