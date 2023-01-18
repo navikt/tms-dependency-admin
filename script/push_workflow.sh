@@ -2,7 +2,7 @@
 
 IFS=
 
-LOCAL_WORKFLOW_LOCATION='../.github/workflows/distributed/verify_distributed_dependencies.yaml'
+LOCAL_WORKFLOW_LOCATION='.github/workflows/distributed/verify_distributed_dependencies.yaml'
 REMOTE_WORKFLOW_LOCATION='.github/workflows/verify_distributed_dependencies.yaml'
 
 ## Workflow file

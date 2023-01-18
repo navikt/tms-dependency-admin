@@ -30,8 +30,7 @@ jobs:
 
       - name: Update remote workflow
         run: |
-          cd ./script
-          ./push_workflow.sh
+          ./script/push_workflow.sh
         env:
           API_ACCESS_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
           REPOSITORY: ${{ env.REPOSITORY }}
@@ -40,8 +39,7 @@ jobs:
 
       - name: Distribute dependencies
         run: |
-          cd ./script
-          ./push_default_dependencies.sh
+          ./script/push_default_dependencies.sh
         env:
           API_ACCESS_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
           REPOSITORY: ${{ env.REPOSITORY }}

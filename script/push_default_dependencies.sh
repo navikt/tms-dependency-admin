@@ -9,7 +9,7 @@ GROUPS_FILE_LOCATION="buildSrc/src/main/kotlin/groups.kt"
 function defaultDependenciesNode {
   echo $(jq -n -c \
               --arg path $DEPENDENCIES_FILE_LOCATION \
-              --rawfile content "../$DEPENDENCIES_FILE_LOCATION" \
+              --rawfile content "$DEPENDENCIES_FILE_LOCATION" \
               '{ path: $path, mode: "100644", type: "blob", content: $content }'
   )
 }
@@ -18,17 +18,40 @@ function defaultDependenciesNode {
 function dependencyGroupsNode {
   echo $(jq -n -c \
                 --arg path "$GROUPS_FILE_LOCATION" \
-                --rawfile content "../$GROUPS_FILE_LOCATION" \
+                --rawfile content "$GROUPS_FILE_LOCATION" \
                 '{ path: $path, mode: "100644", type: "blob", content: $content }'
     )
 }
+
+LOCAL_SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-7)
+BRANCH_NAME="tms-dependency-admin_$LOCAL_SHORT_SHA"
+
+## Remove existing branches and pull requests originating from this repo
+ALL_BRANCHES=$(curl -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY/branches")
+
+MANAGED_BRANCHES=$(echo $ALL_BRANCHES | jq -r '.[] | select(.name | startswith("tms-dependency-admin_")) | .name')
+
+for branch in $MANAGED_BRANCHES; do
+  if [[ $branch == $BRANCH_NAME ]];
+    BRANCH_EXISTS='true'
+    continue
+  fi
+
+  curl -X DELETE -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY/refs/heads/$branch"
+done
+
+if [[ $BRANCH_EXISTS == 'true' ]]; then
+  echo "Branch med ønskede endringer finnes allerede for repo $REPOSITORY.."
+  exit 0
+done
+
 
 ## Find existing files in buildSrc folder
 BUILD_SRC_CONTENTS=$(curl -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY/git/trees/$LATEST_COMMIT_SHA?recursive=1" | jq -r '.tree[] | select(.path | startswith("buildSrc"))')
 
 ## Find file versions
-LOCAL_DEPENDENCY_FILE_VERSION=$(git hash-object "../$DEPENDENCIES_FILE_LOCATION")
-LOCAL_GROUPS_FILE_VERSION=$(git hash-object "../$GROUPS_FILE_LOCATION")
+LOCAL_DEPENDENCY_FILE_VERSION=$(git hash-object "$DEPENDENCIES_FILE_LOCATION")
+LOCAL_GROUPS_FILE_VERSION=$(git hash-object "$GROUPS_FILE_LOCATION")
 
 REMOTE_DEPENDENCY_FILE_VERSION=$(echo $BUILD_SRC_CONTENTS | jq -r "select(.path == \"$DEPENDENCIES_FILE_LOCATION\").sha")
 REMOTE_GROUPS_FILE_VERSION=$(echo $BUILD_SRC_CONTENTS | jq -r "select(.path == \"$GROUPS_FILE_LOCATION\").sha")
@@ -66,9 +89,6 @@ CREATE_TREE_PAYLOAD=$(echo $CREATE_TREE_PAYLOAD | jq -c '.tree = '"$TREE_NODES")
 
 UPDATED_TREE_SHA=$(curl -s -X POST -u "$API_ACCESS_TOKEN:" --data "$CREATE_TREE_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/git/trees" | jq -r '.sha')
 
-
-SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-7)
-
 COMMIT_MESSAGE=$(git log -1 --pretty=%B)
 
 ## Create commit based on new tree, keep new tree ref
@@ -84,8 +104,6 @@ CREATE_COMMIT_PAYLOAD=$(jq -n -c \
 CREATE_COMMIT_PAYLOAD=$(echo $CREATE_COMMIT_PAYLOAD | jq -c '.parents = ["'"$LATEST_COMMIT_SHA"'"]')
 
 UPDATED_COMMIT_SHA=$(curl -s -X POST -u "$API_ACCESS_TOKEN:" --data "$CREATE_COMMIT_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/git/commits" | jq -r '.sha')
-
-BRANCH_NAME="tms-dependency-admin_$SHORT_SHA"
 
 ## Create branch
 CREATE_BRANCH_PAYLOAD=$(jq -n -c \
