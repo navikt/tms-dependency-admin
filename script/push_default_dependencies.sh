@@ -112,7 +112,7 @@ CREATE_BRANCH_PAYLOAD=$(jq -n -c \
                       '{ ref: $ref, sha: $sha }'
 )
 
-curl -s -X POST -u "$API_ACCESS_TOKEN:" --data "$CREATE_BRANCH_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/git/refs"
+curl -s -X POST -u "$API_ACCESS_TOKEN:" --data "$CREATE_BRANCH_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/git/refs" > /dev/null
 
 ## Push new commit
 PUSH_COMMIT_PAYLOAD=$(jq -n -c \
