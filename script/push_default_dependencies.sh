@@ -89,7 +89,11 @@ CREATE_TREE_PAYLOAD=$(echo $CREATE_TREE_PAYLOAD | jq -c '.tree = '"$TREE_NODES")
 
 UPDATED_TREE_SHA=$(curl -s -X POST -u "$API_ACCESS_TOKEN:" --data "$CREATE_TREE_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/git/trees" | jq -r '.sha')
 
-COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+if [[ -z $COMMIT_MESSGE_OVERRIDE ]]; then
+  COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+else
+  COMMIT_MESSAGE=$COMMIT_MESSGE_OVERRIDE
+fi
 
 ## Create commit based on new tree, keep new tree ref
 CREATE_COMMIT_PAYLOAD=$(jq -n -c \

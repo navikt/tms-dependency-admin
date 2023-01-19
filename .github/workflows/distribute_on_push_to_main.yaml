@@ -2,6 +2,11 @@ name: Publiser default dedendency config
 
 on:
   workflow_dispatch:
+    inputs:
+      commit_message:
+        description: 'Commit message override'
+        required: false
+        type: string
   push:
     branches:
       - main
@@ -67,3 +72,4 @@ jobs:
           REPOSITORY: ${{ env.REPOSITORY }}
           MAIN_BRANCH: ${{ env.MAIN_BRANCH }}
           LATEST_COMMIT_SHA: ${{ env.LATEST_COMMIT_SHA }}
+          COMMIT_MESSAGE_OVERRIDE: ${{ inputs.commit_message }}
