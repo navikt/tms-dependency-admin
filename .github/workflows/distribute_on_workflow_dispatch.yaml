@@ -7,6 +7,10 @@ on:
         description: 'Repository to update'
         required: true
         type: string
+      commit_message:
+        description: 'Commit message override'
+        required: false
+        type: string
 
 jobs:
   publish-dependencies-to-requested-repository:
@@ -45,3 +49,4 @@ jobs:
           REPOSITORY: ${{ env.REPOSITORY }}
           MAIN_BRANCH: ${{ env.MAIN_BRANCH }}
           LATEST_COMMIT_SHA: ${{ env.LATEST_COMMIT_SHA }}
+          COMMIT_MESSAGE_OVERRIDE: ${{ inputs.commit_message }}
