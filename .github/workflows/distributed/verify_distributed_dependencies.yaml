@@ -25,9 +25,12 @@ jobs:
 
       - name: 'Bygg, tag og push Docker image'
         run: |
+          APP_NAME=$(echo $GITHUB_REPOSITORY | rev | cut -f1 -d"/" | rev )
+          TAG_NAME="$(git log -1 --pretty='%ad' --date=format:'%Y%m%d%H%M%S')-$(git log -1 --pretty='%h')"
+          IMAGE_NAME="ghcr.io/$GITHUB_REPOSITORY/$APP_NAME:$TAG_NAME"
           echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u $GITHUB_REPOSITORY --password-stdin
-          docker build --tag ${{ needs.setup.outputs.docker_image }} .
-          docker push ${{ needs.setup.outputs.docker_image }}
+          docker build --tag $IMAGE_NAME .
+          docker push $IMAGE_NAME
 
       - name: 'Deploy-er til dev-gcp for å sjekke viability
         if: env.DEPLOY_CONFIG_DEFINED == 'true'
