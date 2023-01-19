@@ -37,7 +37,9 @@ while read -r branch; do
     continue
   fi
 
-  curl -X DELETE -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY/git/refs/heads/$branch"
+  if [[ ! -z $branch]]; then
+    curl -X DELETE -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY/git/refs/heads/$branch"
+  fi
 done <<< "$MANAGED_BRANCHES"
 
 if [[ $BRANCH_EXISTS == 'true' ]]; then
