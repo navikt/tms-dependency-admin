@@ -37,7 +37,7 @@ while read -r branch; do
     continue
   fi
 
-  if [[ ! -z $branch]]; then
+  if [[ ! -z $branch ]]; then
     curl -X DELETE -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY/git/refs/heads/$branch"
   fi
 done <<< "$MANAGED_BRANCHES"
@@ -94,7 +94,7 @@ UPDATED_TREE_SHA=$(curl -s -X POST -u "$API_ACCESS_TOKEN:" --data "$CREATE_TREE_
 if [[ -z $COMMIT_MESSGE_OVERRIDE ]]; then
   COMMIT_MESSAGE=$(git log -1 --pretty=%B)
 else
-  COMMIT_MESSAGE=$COMMIT_MESSGE_OVERRIDE
+  COMMIT_MESSAGE="$COMMIT_MESSGE_OVERRIDE"
 fi
 
 ## Create commit based on new tree, keep new tree ref
