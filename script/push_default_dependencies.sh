@@ -23,6 +23,9 @@ function dependencyGroupsNode {
     )
 }
 
+## -- Script start --
+
+## Determine name for remote branches
 LOCAL_SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-7)
 BRANCH_NAME="tms-dependency-admin_$LOCAL_SHORT_SHA"
 

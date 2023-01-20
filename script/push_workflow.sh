@@ -1,5 +1,7 @@
 #!/bin/bash
 
+## Globals
+
 IFS=
 
 LOCAL_WORKFLOW_LOCATION='.github/workflows/distributed/verify_distributed_dependencies.yaml'
@@ -13,6 +15,8 @@ function workflowFileNode {
               '{ path: $path, mode: "100644", type: "blob", content: $content }'
   )
 }
+
+## -- Script start --
 
 ## Find version for remote workflow file if exists
 REMOTE_WORKFLOW_VERSION=$(curl -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY/git/trees/$LATEST_COMMIT_SHA?recursive=1" | jq -r ".tree[] | select(.path == \"$REMOTE_WORKFLOW_LOCATION\").sha")
