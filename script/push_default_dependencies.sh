@@ -121,7 +121,7 @@ CREATE_BRANCH_PAYLOAD=$(jq -n -c \
                       '{ ref: $ref, sha: $sha }'
 )
 
-curl -i -X POST -u "$API_ACCESS_TOKEN:" --data "$CREATE_BRANCH_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/git/refs" > /dev/null
+curl -s -X POST -u "$API_ACCESS_TOKEN:" --data "$CREATE_BRANCH_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/git/refs" > /dev/null
 
 ## Push new commit
 PUSH_COMMIT_PAYLOAD=$(jq -n -c \
@@ -129,6 +129,8 @@ PUSH_COMMIT_PAYLOAD=$(jq -n -c \
                       '{ sha: $sha, force: false }'
 )
 
-BRANCH_SHA=$(curl -i -X PATCH -u "$API_ACCESS_TOKEN:" --data "$PUSH_COMMIT_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/git/refs/heads/$BRANCH_NAME" | jq -r '.object.sha')
-
+BRANCH_OUTPUT=$(curl -s -X PATCH -u "$API_ACCESS_TOKEN:" --data "$PUSH_COMMIT_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/git/refs/heads/$BRANCH_NAME")
+BRANCH_SHA=$(echo $BRANCH_OUTPUT | jq -r '.object.sha')
+echo "Branch output: $BRANCH_OUTPUT"
 echo "Branch $BRANCH_NAME is now on commit $BRANCH_SHA"
+
