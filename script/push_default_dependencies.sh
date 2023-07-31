@@ -112,7 +112,14 @@ CREATE_COMMIT_PAYLOAD=$(jq -n -c \
 
 CREATE_COMMIT_PAYLOAD=$(echo $CREATE_COMMIT_PAYLOAD | jq -c '.parents = ["'"$LATEST_COMMIT_SHA"'"]')
 
-UPDATED_COMMIT_SHA=$(curl -s -X POST -u "$API_ACCESS_TOKEN:" --data "$CREATE_COMMIT_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/git/commits" | jq -r '.sha')
+CREATED_COMMIT_RESOPNSE=$(curl -s -X POST -u "$API_ACCESS_TOKEN:" --data "$CREATE_COMMIT_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/git/commits")
+echo "New ref: $CREATED_COMMIT_RESOPNSE"
+
+UPDATED_COMMIT_SHA=$(echo $CREATED_COMMIT_RESOPNSE | jq -r '.sha')
+if [[ $UPDATED_COMMIT_SHA == null ]]; then
+  echo 'Kunne ikke lage ny commit på remote repository'
+  exit 1
+fi
 
 ## Create branch
 CREATE_BRANCH_PAYLOAD=$(jq -n -c \
@@ -132,5 +139,8 @@ PUSH_COMMIT_PAYLOAD=$(jq -n -c \
 BRANCH_OUTPUT=$(curl -s -X PATCH -u "$API_ACCESS_TOKEN:" --data "$PUSH_COMMIT_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/git/refs/heads/$BRANCH_NAME")
 BRANCH_SHA=$(echo $BRANCH_OUTPUT | jq -r '.object.sha')
 echo "Branch output: $BRANCH_OUTPUT"
+if [[ $BRANCH_SHA == null ]]; then
+  echo 'Kunne ikke oppdatere branch'
+  exit 1
+fi
 echo "Branch $BRANCH_NAME is now on commit $BRANCH_SHA"
-
