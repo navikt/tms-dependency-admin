@@ -139,14 +139,9 @@ PUSH_COMMIT_PAYLOAD=$(jq -n -c \
 BRANCH_OUTPUT=$(curl -s -X PATCH -u "$API_ACCESS_TOKEN:" --data "$PUSH_COMMIT_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/git/refs/heads/$BRANCH_NAME")
 BRANCH_SHA=$(echo $BRANCH_OUTPUT | jq -r '.object.sha')
 
-echo "------Branch oppdatering ----:"
-echo $BRANCH_OUTPUT
-echo $BRANCH_OUTPUT | jq -r '.object.sha'
-
 if [[ $BRANCH_SHA == null ]]; then
   echo 'Kunne ikke oppdatere branch'
-  echo $BRANCH_OUTPUT | jq -r 'message'
   exit 1
+else
+  echo "Branch $BRANCH_NAME is now on commit $BRANCH_SHA"
 fi
-echo "Branch $BRANCH_NAME is now on commit $BRANCH_SHA"
-exit 0
