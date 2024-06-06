@@ -1,12 +1,18 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
+    kotlin("jvm").version(Kotlin.version)
+
     `kotlin-dsl`
     `maven-publish`
 }
 
 repositories {
     mavenCentral()
+}
+
+kotlin {
+    jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
 }
 
 dependencies {
