@@ -1,3 +1,5 @@
+import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
+
 plugins {
     kotlin("jvm").version(Kotlin.version)
 
@@ -59,4 +61,69 @@ dependencies {
     implementation(Prometheus.httpServer)
     implementation(Prometheus.logback)
     implementation(Prometheus.simpleClient)
+    implementation(Jjwt.api)
+    implementation(Jjwt.impl)
+    implementation(Jjwt.jackson)
+    implementation(Jjwt.orgjson)
+    implementation(KotlinLogging.logging)
+    implementation(KotliQuery.kotliquery)
+    implementation(Logstash.logbackEncoder)
+    //TODO
+    //implementation(TmsCommonLib.metrics)
+    //implementation(TmsCommonLib.utils)
+    //implementation(TmsKafkaTools.kafkaApplication)
+    //implementation(TmsKtorTokenSupport.tokenXValidation)
+    //implementation(TmsKtorTokenSupport.tokendingsExchange)
+    //implementation(TmsKtorTokenSupport.azureExchange)
+    //implementation(TmsKtorTokenSupport.azureValidation)
+
+
+    testImplementation(TestContainers.testContainers)
+    testImplementation(TestContainers.postgresql)
+    testImplementation(Mockk.mockk)
+    testImplementation(Junit.api)
+    testImplementation(Junit.params)
+    testImplementation(Kotest.runnerJunit5)
+    testImplementation(Kotest.assertionsCore)
+    testImplementation(Kotest.extensions)
+    //testImplementation(TmsKtorTokenSupport.tokenXValidationMock)
+    //testImplementation(TmsKtorTokenSupport.azureValidationMock)
+}
+
+buildscript {
+    repositories {
+        // Use 'gradle install' to install latest
+        mavenLocal()
+        gradlePluginPortal()
+    }
+
+    dependencies {
+        classpath("com.github.ben-manes:gradle-versions-plugin:+")
+    }
+}
+apply(plugin = "com.github.ben-manes.versions")
+
+tasks.named<Test>("test") {
+    // Use JUnit Platform for unit tests.
+    useJUnitPlatform()
+    environment ("ADMIN_GROUP" to "test_admin")
+}
+fun isNonStable(version: String): Boolean {
+    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.uppercase().contains(it) }
+    val regex = "^[0-9,.v-]+(-r)?$".toRegex()
+    val isStable = stableKeyword || regex.matches(version)
+    return isStable.not()
+}
+
+tasks.named<DependencyUpdatesTask>("dependencyUpdates").configure {
+
+    // optional parameters
+    checkForGradleUpdate = true
+    outputFormatter = "json"
+    outputDir = "build/dependencyUpdates"
+    reportfileName = "dependencies"
+
+    rejectVersionIf {
+        isNonStable(candidate.version)
+    }
 }
