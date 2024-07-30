@@ -46,7 +46,7 @@ def is_major_version(version):
 
 
 def map_dependency(dep):
-    return f'{dep["group"]}:  {dep["version"]} -> {dep["available"]["milestone"]}'
+    return f'{dep["group"]}:{dep["name"]} :  {dep["version"]} -> {dep["available"]["milestone"]}'
 
 
 def write_findings_to_file(pending_updates):
