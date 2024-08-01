@@ -246,3 +246,11 @@ interface TmsKtorTokenSupportDefaults: DependencyGroup {
     val idportenSidecar get() = dependency("idporten-sidecar")
     val idportenSidecarMock get() = dependency("idporten-sidecar-mock")
 }
+
+/*
+2024-08-01 07:12:19: 2 outdated dependencies
+org.testcontainers:postgresql :  1.20.0 -> 1.20.1
+org.testcontainers:testcontainers :  1.20.0 -> 1.20.1
+**Ignored dependencies
+org.jetbrains.kotlin
+org.gradle.kotlin.kotlin-dsl
