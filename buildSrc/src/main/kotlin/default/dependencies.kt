@@ -16,7 +16,7 @@ interface DependencyGroup {
 
 interface FlywayDefaults: DependencyGroup {
     override val groupId get() = "org.flywaydb"
-    override val version get() = "10.17.0"
+    override val version get() = "10.17.1"
 
     val pluginId get() = "org.flywaydb.flyway"
     val core get() = dependency("flyway-core")
@@ -39,7 +39,7 @@ interface JacksonDatatypeDefaults: DependencyGroup {
 
 interface JunitDefaults: DependencyGroup {
     override val groupId get() = "org.junit.jupiter"
-    override val version get() = "5.10.3"
+    override val version get() = "5.11.0"
 
     val api get() = dependency("junit-jupiter-api")
     val engine get() = dependency("junit-jupiter-engine")
@@ -83,7 +83,7 @@ interface KotestDefaults: DependencyGroup {
 
 interface KotlinDefaults: DependencyGroup {
     override val groupId get() = "org.jetbrains.kotlin"
-    override val version get() = "2.0.0"
+    override val version get() = "2.0.10"
 
     val reflect get() = dependency("kotlin-reflect")
 }
@@ -207,7 +207,7 @@ interface ShadowDefaults: DependencyGroup {
 }
 
 interface TestContainersDefaults: DependencyGroup {
-    override val version get() = "1.20.0"
+    override val version get() = "1.20.1"
     override val groupId get() = "org.testcontainers"
 
     val junitJupiter get() = dependency("junit-jupiter")
@@ -246,16 +246,3 @@ interface TmsKtorTokenSupportDefaults: DependencyGroup {
     val idportenSidecar get() = dependency("idporten-sidecar")
     val idportenSidecarMock get() = dependency("idporten-sidecar-mock")
 }
-
-/*
-2024-08-19 09:23:31: 6 outdated dependencies
-org.flywaydb:flyway-core :  10.17.0 -> 10.17.1
-org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin :  2.0.0 -> 2.0.10
-org.junit.jupiter:junit-jupiter-api :  5.10.3 -> 5.11.0
-org.junit.jupiter:junit-jupiter-params :  5.10.3 -> 5.11.0
-org.testcontainers:postgresql :  1.20.0 -> 1.20.1
-org.testcontainers:testcontainers :  1.20.0 -> 1.20.1
-**Ignored dependencies
-org.jetbrains.kotlin
-org.gradle.kotlin.kotlin-dsl
-io.micrometer
