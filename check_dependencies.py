@@ -10,7 +10,7 @@ json_file_name = 'build/dependencyUpdates/dependencies.json'
 date_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 dependency_log_file = f'dependency_updates/{datetime.now().strftime("%Y-%m")}.txt'
 dependency_definition_file = "buildSrc/src/main/kotlin/default/dependencies.kt"
-ignore_list = ["org.jetbrains.kotlin", "org.gradle.kotlin.kotlin-dsl"]
+ignore_list = ["org.jetbrains.kotlin", "org.gradle.kotlin.kotlin-dsl","io.micrometer"]
 
 
 def run_checks():
@@ -25,6 +25,8 @@ def run_checks():
         else:
             print(f'Found {len(updates_summary)} outdated dependencies:')
             print("\n".join(updates_summary))
+            if len(ignore_list) != 0:
+                print(f'\n**Ignored dependencies\n{"\n".join(ignore_list)}')
         sys.exit(len(updates_summary))
     else:
         print(f'Scan completed, no outdated dependencies found.')
