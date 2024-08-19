@@ -33,6 +33,9 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.12'
+      - name: Get current date
+        id: date
+        run: echo "$(date +'%Y-%m-%d')"
       - name: Check pending updates
         id: dependency-check
         run: |
@@ -48,7 +51,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create new PR
         if: ${{ fromJson(steps.dependency-check.outputs.exitcode) != 0 }}
-        run: | 
+        run: |
+          git branch -a | awk '/remotes\/origin\/pending-updates/ {split($0,arr,"/"); print arr[3]}' |  xargs --no-run-if-empty git push -d origin
           echo "Found ${{ steps.dependency-check.outputs.exitcode }} pending updates, creating PR"
           git config user.email "${{ github.run_id }}+github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
@@ -63,5 +67,6 @@ jobs:
       - name: No pending dependency updates
         if: ${{ fromJson(steps.dependency-check.outputs.exitcode) == 0 }}
         run: |
+          git branch -a | awk '/remotes\/origin\/pending-updates/ {split($0,arr,"/"); print arr[3]}' | xargs --no-run-if-empty git push -d origin
           echo "Gradle dependency scan at $(date -u +%Y-%m-%dT%H%M) completed without finding any outdated dependencies"
           echo "No outdated dependencies found " >> $GITHUB_STEP_SUMMARY
