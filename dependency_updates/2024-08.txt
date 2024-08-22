@@ -9,3 +9,10 @@ org.testcontainers:testcontainers :  1.20.0 -> 1.20.1
 org.jetbrains.kotlin
 org.gradle.kotlin.kotlin-dsl
 io.micrometer
+ -----Dependency check ------
+2024-08-22 10:07:44: 1 outdated dependencies found
+org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin :  2.0.10 -> 2.0.20
+**Ignored dependencies
+org.jetbrains.kotlin
+org.gradle.kotlin.kotlin-dsl
+io.micrometer
