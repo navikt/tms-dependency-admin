@@ -9,3 +9,12 @@ org.testcontainers:testcontainers :  1.20.0 -> 1.20.1
 org.jetbrains.kotlin
 org.gradle.kotlin.kotlin-dsl
 io.micrometer
+ -----Dependency check ------
+2024-08-25 10:06:05: 3 outdated dependencies found
+org.flywaydb:flyway-core :  10.17.1 -> 10.17.2
+org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin :  2.0.10 -> 2.0.20
+org.postgresql:postgresql :  42.7.3 -> 42.7.4
+**Ignored dependencies
+org.jetbrains.kotlin
+org.gradle.kotlin.kotlin-dsl
+io.micrometer
