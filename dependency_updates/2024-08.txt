@@ -18,3 +18,9 @@ org.postgresql:postgresql :  42.7.3 -> 42.7.4
 org.jetbrains.kotlin
 org.gradle.kotlin.kotlin-dsl
 io.micrometer
+ -----Dependency check ------
+2024-08-26 12:40:07: 1 outdated dependencies found
+io.micrometer:micrometer-registry-prometheus :   1.13.3 -> 1.13.3
+**Ignored dependencies
+org.jetbrains.kotlin
+org.gradle.kotlin.kotlin-dsl
