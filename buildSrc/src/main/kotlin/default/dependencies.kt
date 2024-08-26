@@ -163,7 +163,7 @@ interface LogstashDefaults: DependencyGroup {
 
 interface MicrometerDefaults: DependencyGroup {
     override val groupId get() = "io.micrometer"
-    override val version get() = " 1.13.3"
+    override val version get() = "1.13.3"
 
     val registryPrometheus get() = dependency("micrometer-registry-prometheus")
 }
@@ -246,9 +246,3 @@ interface TmsKtorTokenSupportDefaults: DependencyGroup {
     val idportenSidecar get() = dependency("idporten-sidecar")
     val idportenSidecarMock get() = dependency("idporten-sidecar-mock")
 }
-/*
-2024-08-26 12:40:07: 1 outdated dependencies
-io.micrometer:micrometer-registry-prometheus :   1.13.3 -> 1.13.3
-**Ignored dependencies
-org.jetbrains.kotlin
-org.gradle.kotlin.kotlin-dsl
