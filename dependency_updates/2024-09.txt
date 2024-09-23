@@ -1,0 +1,7 @@
+2024-09-23 10:07:34: 3 outdated dependencies found
+io.micrometer:micrometer-registry-prometheus :  1.13.3 -> 1.13.4
+org.flywaydb:flyway-core :  10.17.2 -> 10.18.0
+org.jetbrains.kotlinx:kotlinx-coroutines-core :  1.8.1 -> 1.9.0
+**Ignored dependencies
+org.jetbrains.kotlin
+org.gradle.kotlin.kotlin-dsl
