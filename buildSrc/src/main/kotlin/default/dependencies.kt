@@ -246,3 +246,13 @@ interface TmsKtorTokenSupportDefaults: DependencyGroup {
     val idportenSidecar get() = dependency("idporten-sidecar")
     val idportenSidecarMock get() = dependency("idporten-sidecar-mock")
 }
+
+/*
+2024-09-24 10:06:57: 4 outdated dependencies
+com.zaxxer:HikariCP :  5.1.0 -> 6.0.0
+io.micrometer:micrometer-registry-prometheus :  1.13.3 -> 1.13.4
+org.flywaydb:flyway-core :  10.17.2 -> 10.18.0
+org.jetbrains.kotlinx:kotlinx-coroutines-core :  1.8.1 -> 1.9.0
+**Ignored dependencies
+org.jetbrains.kotlin
+org.gradle.kotlin.kotlin-dsl
