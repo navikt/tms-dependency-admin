@@ -1,0 +1,10 @@
+2024-09-25 10:07:21: 6 outdated dependencies found
+com.zaxxer:HikariCP :  5.1.0 -> 6.0.0
+io.micrometer:micrometer-registry-prometheus :  1.13.3 -> 1.13.4
+org.flywaydb:flyway-core :  10.17.2 -> 10.18.1
+org.jetbrains.kotlinx:kotlinx-coroutines-core :  1.8.1 -> 1.9.0
+org.junit.jupiter:junit-jupiter-api :  5.11.0 -> 5.11.1
+org.junit.jupiter:junit-jupiter-params :  5.11.0 -> 5.11.1
+**Ignored dependencies
+org.jetbrains.kotlin
+org.gradle.kotlin.kotlin-dsl
