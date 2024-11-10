@@ -246,3 +246,40 @@ interface TmsKtorTokenSupportDefaults: DependencyGroup {
     val idportenSidecar get() = dependency("idporten-sidecar")
     val idportenSidecarMock get() = dependency("idporten-sidecar-mock")
 }
+
+/*
+2024-11-10 10:06:16: 31 outdated dependencies
+com.fasterxml.jackson.datatype:jackson-datatype-jsr310 :  2.17.2 -> 2.18.1
+com.zaxxer:HikariCP :  5.1.0 -> 6.1.0
+io.ktor:ktor-client-apache :  2.3.12 -> 3.0.1
+io.ktor:ktor-client-content-negotiation :  2.3.12 -> 3.0.1
+io.ktor:ktor-client-core :  2.3.12 -> 3.0.1
+io.ktor:ktor-client-mock :  2.3.12 -> 3.0.1
+io.ktor:ktor-serialization-jackson :  2.3.12 -> 3.0.1
+io.ktor:ktor-serialization-kotlinx-json :  2.3.12 -> 3.0.1
+io.ktor:ktor-server-auth :  2.3.12 -> 3.0.1
+io.ktor:ktor-server-auth-jwt :  2.3.12 -> 3.0.1
+io.ktor:ktor-server-content-negotiation :  2.3.12 -> 3.0.1
+io.ktor:ktor-server-core :  2.3.12 -> 3.0.1
+io.ktor:ktor-server-cors :  2.3.12 -> 3.0.1
+io.ktor:ktor-server-default-headers :  2.3.12 -> 3.0.1
+io.ktor:ktor-server-html-builder :  2.3.12 -> 3.0.1
+io.ktor:ktor-server-metrics-micrometer :  2.3.12 -> 3.0.1
+io.ktor:ktor-server-netty :  2.3.12 -> 3.0.1
+io.ktor:ktor-server-status-pages :  2.3.12 -> 3.0.1
+io.ktor:ktor-server-test-host :  2.3.12 -> 3.0.1
+io.micrometer:micrometer-registry-prometheus :  1.13.3 -> 1.13.6
+io.mockk:mockk :  1.13.12 -> 1.13.13
+org.apache.kafka:kafka-clients :  3.8.0 -> 3.9.0
+org.apache.kafka:kafka-streams :  3.8.0 -> 3.9.0
+org.apache.kafka:kafka_2.12 :  3.8.0 -> 3.9.0
+org.flywaydb:flyway-core :  10.17.2 -> 10.21.0
+org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin :  2.0.20 -> 2.0.21
+org.jetbrains.kotlinx:kotlinx-coroutines-core :  1.8.1 -> 1.9.0
+org.junit.jupiter:junit-jupiter-api :  5.11.0 -> 5.11.3
+org.junit.jupiter:junit-jupiter-params :  5.11.0 -> 5.11.3
+org.testcontainers:postgresql :  1.20.1 -> 1.20.3
+org.testcontainers:testcontainers :  1.20.1 -> 1.20.3
+**Ignored dependencies
+org.jetbrains.kotlin
+org.gradle.kotlin.kotlin-dsl
