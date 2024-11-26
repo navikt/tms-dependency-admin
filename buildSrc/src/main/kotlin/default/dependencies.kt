@@ -239,3 +239,26 @@ interface TmsKtorTokenSupportDefaults: DependencyGroup {
     val idportenSidecar get() = dependency("idporten-sidecar")
     val idportenSidecarMock get() = dependency("idporten-sidecar-mock")
 }
+
+/*
+2024-11-26 11:34:16: 17 outdated dependencies
+io.ktor:ktor-client-apache :  2.3.12 -> 3.0.1
+io.ktor:ktor-client-content-negotiation :  2.3.12 -> 3.0.1
+io.ktor:ktor-client-core :  2.3.12 -> 3.0.1
+io.ktor:ktor-client-mock :  2.3.12 -> 3.0.1
+io.ktor:ktor-serialization-jackson :  2.3.12 -> 3.0.1
+io.ktor:ktor-serialization-kotlinx-json :  2.3.12 -> 3.0.1
+io.ktor:ktor-server-auth :  2.3.12 -> 3.0.1
+io.ktor:ktor-server-auth-jwt :  2.3.12 -> 3.0.1
+io.ktor:ktor-server-content-negotiation :  2.3.12 -> 3.0.1
+io.ktor:ktor-server-core :  2.3.12 -> 3.0.1
+io.ktor:ktor-server-cors :  2.3.12 -> 3.0.1
+io.ktor:ktor-server-default-headers :  2.3.12 -> 3.0.1
+io.ktor:ktor-server-html-builder :  2.3.12 -> 3.0.1
+io.ktor:ktor-server-metrics-micrometer :  2.3.12 -> 3.0.1
+io.ktor:ktor-server-netty :  2.3.12 -> 3.0.1
+io.ktor:ktor-server-status-pages :  2.3.12 -> 3.0.1
+io.ktor:ktor-server-test-host :  2.3.12 -> 3.0.1
+**Ignored dependencies
+org.jetbrains.kotlin
+org.gradle.kotlin.kotlin-dsl
