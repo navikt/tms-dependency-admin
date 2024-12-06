@@ -239,3 +239,30 @@ interface TmsKtorTokenSupportDefaults: DependencyGroup {
     val idportenSidecar get() = dependency("idporten-sidecar")
     val idportenSidecarMock get() = dependency("idporten-sidecar-mock")
 }
+
+/*
+2024-12-06 10:07:45: 21 outdated dependencies
+com.fasterxml.jackson.datatype:jackson-datatype-jsr310 :  2.18.1 -> 2.18.2
+io.github.oshai:kotlin-logging :  7.0.0 -> 7.0.3
+io.ktor:ktor-client-apache :  2.3.12 -> 3.0.2
+io.ktor:ktor-client-content-negotiation :  2.3.12 -> 3.0.2
+io.ktor:ktor-client-core :  2.3.12 -> 3.0.2
+io.ktor:ktor-client-mock :  2.3.12 -> 3.0.2
+io.ktor:ktor-serialization-jackson :  2.3.12 -> 3.0.2
+io.ktor:ktor-serialization-kotlinx-json :  2.3.12 -> 3.0.2
+io.ktor:ktor-server-auth :  2.3.12 -> 3.0.2
+io.ktor:ktor-server-auth-jwt :  2.3.12 -> 3.0.2
+io.ktor:ktor-server-content-negotiation :  2.3.12 -> 3.0.2
+io.ktor:ktor-server-core :  2.3.12 -> 3.0.2
+io.ktor:ktor-server-cors :  2.3.12 -> 3.0.2
+io.ktor:ktor-server-default-headers :  2.3.12 -> 3.0.2
+io.ktor:ktor-server-html-builder :  2.3.12 -> 3.0.2
+io.ktor:ktor-server-metrics-micrometer :  2.3.12 -> 3.0.2
+io.ktor:ktor-server-netty :  2.3.12 -> 3.0.2
+io.ktor:ktor-server-status-pages :  2.3.12 -> 3.0.2
+io.ktor:ktor-server-test-host :  2.3.12 -> 3.0.2
+org.flywaydb:flyway-core :  11.0.0 -> 11.0.1
+org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin :  2.0.21 -> 2.1.0
+**Ignored dependencies
+org.jetbrains.kotlin
+org.gradle.kotlin.kotlin-dsl
