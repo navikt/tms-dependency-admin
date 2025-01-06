@@ -51,7 +51,7 @@ jobs:
         run: |
           ./script/update_jar_plugin.sh
         env:
-          REPOSITORY: ${{ matrix.managed-app }}
+          REPOSITORY: ${{ env.repository }}
           API_ACCESS_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
           COMMIT_MESSAGE_OVERRIDE: ${{ inputs.commit_message }}
           MAIN_BRANCH: ${{ env.MAIN_BRANCH }}
@@ -78,7 +78,7 @@ jobs:
         run: |
           ./script/update_jar_plugin.sh
         env:
-          REPOSITORY: ${{ inputs.repository }}
+          REPOSITORY: ${{ env.repository }}
           API_ACCESS_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
           COMMIT_MESSAGE_OVERRIDE: ${{ inputs.commit_message }}
           MAIN_BRANCH: ${{ env.MAIN_BRANCH }}
