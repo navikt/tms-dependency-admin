@@ -1,0 +1,51 @@
+name: Publiser jar-bundling plugin
+
+on:
+  workflow_dispatch:
+    inputs:
+      repository:
+        description: 'Repository to update'
+        required: false
+        type: string
+      commit_message:
+        description: 'Commit message override'
+        required: false
+        type: string
+
+jobs:
+  setup-for-update-distribution:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Validate token
+        run: |
+          ./script/validate_token.sh
+        env:
+          API_ACCESS_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
+
+  update-jar-plugin-for-managed-repositories:
+    if: github.event.inputs.repository == ''
+    name: ${{ matrix.managed-app }}
+    runs-on: ubuntu-20.04
+    needs:
+      - setup-for-distribution
+    strategy:
+      fail-fast: false
+      max-parallel: 5
+      matrix:
+        managed-app: ${{ fromJson(needs.setup-for-update-distribution.outputs.managed-apps) }}
+    steps:
+      - name: debug
+        run: echo ${{ matrix.managed-app }}
+
+  update-jar-plugin-for-specified-repository:
+    if: github.event.inputs.repository == ''
+    name: ${{ matrix.managed-app }}
+    runs-on: ubuntu-20.04
+    needs:
+      - setup-for-distribution
+    steps:
+      - name: debug
+        run: echo ${{ inputs.repository }}
