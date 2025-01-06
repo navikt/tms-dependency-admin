@@ -36,12 +36,15 @@ function buildNode {
 ## -- Script start --
 
 ## Set name for remote branches
-BRANCH_NAME="setup-jar-plugin"
+BRANCH_NAME="update-jar-plugin"
 
 ## Remove existing branches and pull requests originating from this repo
 ALL_BRANCHES=$(curl -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY/branches")
 
-MANAGED_BRANCHES=$(echo $ALL_BRANCHES | jq -r '.[] | select(.name | startswith("setup-jar-plugin")) | .name')
+MANAGED_BRANCHES=$(echo $ALL_BRANCHES | jq -r '.[] | select(.name | startswith("update-jar-plugin")) | .name')
+
+## debug
+echo Hello1
 
 while read -r branch; do
   if [[ $branch == $BRANCH_NAME ]]; then
@@ -54,11 +57,19 @@ while read -r branch; do
   fi
 done <<< "$MANAGED_BRANCHES"
 
+
+## debug
+echo Hello2
+
 if [[ $BRANCH_EXISTS == 'true' ]]; then
   echo "Branch med ønskede endringer finnes allerede for repo $REPOSITORY.."
   exit 0
 fi
 
+
+
+## debug
+echo Hello3
 
 ## Find existing files in buildSrc folder
 BUILD_SRC_CONTENTS=$(curl -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY/git/trees/$LATEST_COMMIT_SHA?recursive=1" | jq -r '.tree[] | select(.path | startswith("buildSrc"))')
@@ -71,6 +82,10 @@ LOCAL_BUILD_FILE_VERSION=$(git hash-object "$BUILD_FILE_LOCATION")
 REMOTE_PLUGIN_FILE_VERSION=$(echo $BUILD_SRC_CONTENTS | jq -r "select(.path == \"$PLUGIN_FILE_LOCATION\").sha")
 REMOTE_GROUPS_FILE_VERSION=$(echo $BUILD_SRC_CONTENTS | jq -r "select(.path == \"$GROUPS_FILE_LOCATION\").sha")
 REMOTE_BUILD_FILE_VERSION=$(echo $BUILD_SRC_CONTENTS | jq -r "select(.path == \"$BUILD_FILE_LOCATION\").sha")
+
+
+## debug
+echo Hello4
 
 ## Check if files are missing or out of date
 if [[ -z $REMOTE_PLUGIN_FILE_VERSION || $REMOTE_PLUGIN_FILE_VERSION != $LOCAL_PLUGIN_FILE_VERSION ]]; then
@@ -90,6 +105,10 @@ if [[ -z $REMOTE_BUILD_FILE_VERSION || $REMOTE_BUILD_FILE_VERSION != $LOCAL_BUIL
 else
   UPDATE_BUILD_FILE='false'
 fi
+
+
+## debug
+echo Hello5
 
 ## Add files to tree
 if [[ $UPDATE_DEPENDENCY_FILE == 'false' && $UPDATE_GROUPS_FILE == 'false' && $UPDATE_BUILD_FILE == 'false' ]]; then
@@ -117,6 +136,10 @@ else
   COMMIT_MESSAGE="$COMMIT_MESSAGE_OVERRIDE"
 fi
 
+
+## debug
+echo Hello6
+
 ## Create commit based on new tree, keep new tree ref
 CREATE_COMMIT_PAYLOAD=$(jq -n -c \
                         --arg message $COMMIT_MESSAGE \
@@ -137,6 +160,10 @@ if [[ $UPDATED_COMMIT_SHA == null ]]; then
   echo 'Kunne ikke lage ny commit på remote repository'
   exit 1
 fi
+
+
+## debug
+echo Hello7
 
 ## Create branch
 CREATE_BRANCH_PAYLOAD=$(jq -n -c \
