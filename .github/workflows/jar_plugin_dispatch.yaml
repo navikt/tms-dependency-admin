@@ -44,9 +44,11 @@ jobs:
         run: |
           ./script/update_jar_plugin.sh
         env:
-          MANAGED_APP: ${{ matrix.managed-app }}
+          REPOSITORY: ${{ matrix.managed-app }}
           API_ACCESS_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
           COMMIT_MESSAGE_OVERRIDE: ${{ inputs.commit_message }}
+          MAIN_BRANCH: ${{ env.MAIN_BRANCH }}
+          LATEST_COMMIT_SHA: ${{ env.LATEST_COMMIT_SHA }}
 
   update-jar-plugin-for-specified-repository:
     if: github.event.inputs.repository != ''
@@ -62,6 +64,8 @@ jobs:
         run: |
           ./script/update_jar_plugin.sh
         env:
-          MANAGED_APP: ${{ inputs.repository }}
+          REPOSITORY: ${{ inputs.repository }}
           API_ACCESS_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
           COMMIT_MESSAGE_OVERRIDE: ${{ inputs.commit_message }}
+          MAIN_BRANCH: ${{ env.MAIN_BRANCH }}
+          LATEST_COMMIT_SHA: ${{ env.LATEST_COMMIT_SHA }}
