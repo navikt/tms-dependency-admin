@@ -37,8 +37,16 @@ jobs:
       matrix:
         managed-app: ${{ fromJson(needs.setup-for-update-distribution.outputs.managed-apps) }}
     steps:
-      - name: debug
-        run: echo ${{ matrix.managed-app }}
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Validate remote dependency and setup env
+        run: |
+          ./script/update_jar_plugin.sh
+        env:
+          MANAGED_APP: ${{ matrix.managed-app }}
+          API_ACCESS_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
+          COMMIT_MESSAGE_OVERRIDE: ${{ inputs.commit_message }}
 
   update-jar-plugin-for-specified-repository:
     if: github.event.inputs.repository != ''
@@ -47,5 +55,13 @@ jobs:
     needs:
       - setup-for-update-distribution
     steps:
-      - name: debug
-        run: echo ${{ inputs.repository }}
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Validate remote dependency and setup env
+        run: |
+          ./script/update_jar_plugin.sh
+        env:
+          MANAGED_APP: ${{ inputs.repository }}
+          API_ACCESS_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
+          COMMIT_MESSAGE_OVERRIDE: ${{ inputs.commit_message }}
