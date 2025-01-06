@@ -25,17 +25,27 @@ jobs:
         env:
           API_ACCESS_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
 
-  update-jar-plugin-for-managed-repositories:
+  read-managed-apps:
+    runs-on: ubuntu-20.04
     if: github.event.inputs.repository == ''
+    steps:
+      - name: Read list of managed apps
+        id: read-apps
+        run: |
+          MANAGED_APPS=$(cat ./config/managed_apps.conf | jq -Rsc 'split("\n") | map(select(. != ""))')
+          echo "MANAGED_APPS=$MANAGED_APPS" >> $GITHUB_OUTPUT
+
+  update-jar-plugin-for-managed-repositories:
     name: ${{ matrix.managed-app }}
     runs-on: ubuntu-20.04
     needs:
       - setup-for-update-distribution
+      - read-managed-apps
     strategy:
       fail-fast: false
       max-parallel: 5
       matrix:
-        managed-app: ${{ fromJson(needs.setup-for-update-distribution.outputs.managed-apps) }}
+        managed-app: ${{ fromJson(needs.read-managed-apps.outputs.managed-apps) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
