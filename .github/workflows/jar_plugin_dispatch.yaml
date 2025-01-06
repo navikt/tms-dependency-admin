@@ -46,6 +46,7 @@ jobs:
         env:
           MANAGED_APP: ${{ matrix.managed-app }}
           API_ACCESS_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
+          COMMIT_MESSAGE_OVERRIDE: ${{ inputs.commit_message }}
 
   update-jar-plugin-for-specified-repository:
     if: github.event.inputs.repository == ''
@@ -63,3 +64,4 @@ jobs:
         env:
           MANAGED_APP: ${{ inputs.repository }}
           API_ACCESS_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
+          COMMIT_MESSAGE_OVERRIDE: ${{ inputs.commit_message }}
