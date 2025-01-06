@@ -28,6 +28,8 @@ jobs:
   read-managed-apps:
     runs-on: ubuntu-20.04
     if: github.event.inputs.repository == ''
+    outputs:
+      managed-apps: ${{ steps.read-apps.outputs.MANAGED_APPS }}
     steps:
       - name: Read list of managed apps
         id: read-apps
