@@ -1,4 +1,4 @@
-name: Publiser til bestemt repo
+name: Publiser jar-bundling plugin
 
 on:
   workflow_dispatch:
