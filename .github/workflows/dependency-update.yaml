@@ -10,7 +10,7 @@ on:
     paths-ignore:
       - README.md
       - .gitignore
-      - .github/workflows/
+      - .github/workflows/**
 permissions:
   contents: write
   pull-requests: write
