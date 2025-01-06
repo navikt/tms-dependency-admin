@@ -30,7 +30,7 @@ jobs:
     name: ${{ matrix.managed-app }}
     runs-on: ubuntu-20.04
     needs:
-      - setup-for-distribution
+      - setup-for-update-distribution
     strategy:
       fail-fast: false
       max-parallel: 5
@@ -45,7 +45,7 @@ jobs:
     name: ${{ matrix.managed-app }}
     runs-on: ubuntu-20.04
     needs:
-      - setup-for-distribution
+      - setup-for-update-distribution
     steps:
       - name: debug
         run: echo ${{ inputs.repository }}
