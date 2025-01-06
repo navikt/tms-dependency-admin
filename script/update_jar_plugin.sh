@@ -43,9 +43,6 @@ ALL_BRANCHES=$(curl -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$RE
 
 MANAGED_BRANCHES=$(echo $ALL_BRANCHES | jq -r '.[] | select(.name | startswith("update-jar-plugin")) | .name')
 
-## debug
-echo Hello1
-
 while read -r branch; do
   if [[ $branch == $BRANCH_NAME ]]; then
     BRANCH_EXISTS='true'
@@ -58,18 +55,11 @@ while read -r branch; do
 done <<< "$MANAGED_BRANCHES"
 
 
-## debug
-echo Hello2
-
 if [[ $BRANCH_EXISTS == 'true' ]]; then
   echo "Branch med ønskede endringer finnes allerede for repo $REPOSITORY.."
   exit 0
 fi
 
-
-
-## debug
-echo Hello3
 
 ## Find existing files in buildSrc folder
 BUILD_SRC_CONTENTS=$(curl -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY/git/trees/$LATEST_COMMIT_SHA?recursive=1" | jq -r '.tree[] | select(.path | startswith("buildSrc"))')
@@ -83,9 +73,6 @@ REMOTE_PLUGIN_FILE_VERSION=$(echo $BUILD_SRC_CONTENTS | jq -r "select(.path == \
 REMOTE_GROUPS_FILE_VERSION=$(echo $BUILD_SRC_CONTENTS | jq -r "select(.path == \"$GROUPS_FILE_LOCATION\").sha")
 REMOTE_BUILD_FILE_VERSION=$(echo $BUILD_SRC_CONTENTS | jq -r "select(.path == \"$BUILD_FILE_LOCATION\").sha")
 
-
-## debug
-echo Hello4
 
 ## Check if files are missing or out of date
 if [[ -z $REMOTE_PLUGIN_FILE_VERSION || $REMOTE_PLUGIN_FILE_VERSION != $LOCAL_PLUGIN_FILE_VERSION ]]; then
@@ -106,9 +93,6 @@ else
   UPDATE_BUILD_FILE='false'
 fi
 
-
-## debug
-echo Hello5
 
 ## Add files to tree
 if [[ $UPDATE_DEPENDENCY_FILE == 'false' && $UPDATE_GROUPS_FILE == 'false' && $UPDATE_BUILD_FILE == 'false' ]]; then
@@ -137,9 +121,6 @@ else
 fi
 
 
-## debug
-echo Hello6
-
 ## Create commit based on new tree, keep new tree ref
 CREATE_COMMIT_PAYLOAD=$(jq -n -c \
                         --arg message $COMMIT_MESSAGE \
@@ -161,9 +142,6 @@ if [[ $UPDATED_COMMIT_SHA == null ]]; then
   exit 1
 fi
 
-
-## debug
-echo Hello7
 
 ## Create branch
 CREATE_BRANCH_PAYLOAD=$(jq -n -c \
@@ -200,6 +178,6 @@ CREATE_PR_PAYLOAD=$(jq -n -c \
                   '{ title: $title, body: $body, head: $head, base: $base }'
 )
 
-PR_OUTPUT=$(curl -s -X POST -u "$API_ACCESS_TOKEN:" --data "$PUSH_COMMIT_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/pulls")
+PR_OUTPUT=$(curl -s -X POST -u "$API_ACCESS_TOKEN:" --data "$CREATE_PR_PAYLOAD" "https://api.github.com/repos/$REPOSITORY/pulls")
 
 echo "$PR_OUTPUT"
