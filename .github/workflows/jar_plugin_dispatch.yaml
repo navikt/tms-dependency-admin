@@ -41,8 +41,8 @@ jobs:
         run: echo ${{ matrix.managed-app }}
 
   update-jar-plugin-for-specified-repository:
-    if: github.event.inputs.repository == ''
-    name: ${{ matrix.managed-app }}
+    if: github.event.inputs.repository != ''
+    name: ${{ inputs.repository }}
     runs-on: ubuntu-20.04
     needs:
       - setup-for-update-distribution
