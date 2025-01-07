@@ -36,7 +36,8 @@ function buildNode {
 ## -- Script start --
 
 ## Set name for remote branches
-BRANCH_NAME="update-jar-plugin"
+LOCAL_SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-7)
+BRANCH_NAME="update-jar-plugin-$LOCAL_SHORT_SHA"
 
 ## Remove existing branches and pull requests originating from this repo
 ALL_BRANCHES=$(curl -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY/branches")
@@ -53,7 +54,6 @@ while read -r branch; do
     curl -X DELETE -s -u "$API_ACCESS_TOKEN:" "https://api.github.com/repos/$REPOSITORY/git/refs/heads/$branch"
   fi
 done <<< "$MANAGED_BRANCHES"
-
 
 if [[ $BRANCH_EXISTS == 'true' ]]; then
   echo "Branch med ønskede endringer finnes allerede for repo $REPOSITORY.."
