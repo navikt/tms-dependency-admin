@@ -16,7 +16,7 @@ interface DependencyGroup {
 
 interface FlywayDefaults: DependencyGroup {
     override val groupId get() = "org.flywaydb"
-    override val version get() = "11.0.0"
+    override val version get() = "11.1.1"
 
     val pluginId get() = "org.flywaydb.flyway"
     val core get() = dependency("flyway-core")
@@ -31,19 +31,10 @@ interface HikariDefaults: DependencyGroup {
 }
 
 interface JacksonDatatypeDefaults: DependencyGroup {
-    override val version get() = "2.18.1"
+    override val version get() = "2.18.2"
 
     val datatypeJsr310 get() = dependency("jackson-datatype-jsr310", groupId = "com.fasterxml.jackson.datatype")
     val moduleKotlin get() = dependency("jackson-module-kotlin", groupId = "com.fasterxml.jackson.module")
-}
-
-interface JunitDefaults: DependencyGroup {
-    override val groupId get() = "org.junit.jupiter"
-    override val version get() = "5.11.3"
-
-    val api get() = dependency("junit-jupiter-api")
-    val engine get() = dependency("junit-jupiter-engine")
-    val params get() = dependency("junit-jupiter-params")
 }
 
 interface JjwtDefaults: DependencyGroup {
@@ -54,6 +45,22 @@ interface JjwtDefaults: DependencyGroup {
     val impl get() = dependency("jjwt-impl")
     val jackson get() = dependency("jjwt-jackson")
     val orgjson get() = dependency("jjwt-orgjson")
+}
+
+interface JunitJupiterDefaults: DependencyGroup {
+    override val groupId get() = "org.junit.jupiter"
+    override val version get() = "5.11.4"
+
+    val api get() = dependency("junit-jupiter-api")
+    val engine get() = dependency("junit-jupiter-engine")
+    val params get() = dependency("junit-jupiter-params")
+}
+
+interface JunitPlatformDefaults: DependencyGroup {
+    override val groupId get() = "org.junit.platform"
+    override val version get() = "1.11.4"
+
+    val launcher get() = dependency("junit-platform-launcher")
 }
 
 interface KafkaDefaults: DependencyGroup {
@@ -83,14 +90,14 @@ interface KotestDefaults: DependencyGroup {
 
 interface KotlinDefaults: DependencyGroup {
     override val groupId get() = "org.jetbrains.kotlin"
-    override val version get() = "2.0.21"
+    override val version get() = "2.1.0"
 
     val reflect get() = dependency("kotlin-reflect")
 }
 
 interface KotlinLoggingDefaults: DependencyGroup {
     override val groupId get() = "io.github.oshai"
-    override val version get() = "7.0.0"
+    override val version get() = "7.0.3"
 
     val logging get() = dependency("kotlin-logging")
 }
@@ -98,18 +105,18 @@ interface KotlinLoggingDefaults: DependencyGroup {
 interface KotlinxDefaults: DependencyGroup {
     override val groupId get() = "org.jetbrains.kotlinx"
 
-    val coroutines get() = dependency("kotlinx-coroutines-core", version = "1.9.0")
+    val coroutines get() = dependency("kotlinx-coroutines-core", version = "1.10.1")
 }
 
 interface KotliQueryDefaults: DependencyGroup {
     override val groupId get() = "com.github.seratch"
-    override val version get() = "1.9.0"
+    override val version get() = "1.9.1"
 
     val kotliquery get() = dependency("kotliquery")
 }
 
 object KtorDefaults {
-    val version get() = "3.0.1"
+    val version get() = "3.0.3"
     val groupId get() = "io.ktor"
 
     interface ServerDefaults: DependencyGroup {
@@ -163,14 +170,14 @@ interface LogstashDefaults: DependencyGroup {
 
 interface MicrometerDefaults: DependencyGroup {
     override val groupId get() = "io.micrometer"
-    override val version get() = "1.14.1"
+    override val version get() = "1.14.2"
 
     val registryPrometheus get() = dependency("micrometer-registry-prometheus")
 }
 
 interface MockkDefaults: DependencyGroup {
     override val groupId get() = "io.mockk"
-    override val version get() = "1.13.13"
+    override val version get() = "1.13.16"
 
     val mockk get() = dependency("mockk")
 }
@@ -236,36 +243,3 @@ interface TmsKtorTokenSupportDefaults: DependencyGroup {
     val idportenSidecar get() = dependency("idporten-sidecar")
     val idportenSidecarMock get() = dependency("idporten-sidecar-mock")
 }
-
-/*
-2025-01-12 10:06:28: 27 outdated dependencies
-com.fasterxml.jackson.datatype:jackson-datatype-jsr310 :  2.18.1 -> 2.18.2
-com.github.seratch:kotliquery :  1.9.0 -> 1.9.1
-io.github.oshai:kotlin-logging :  7.0.0 -> 7.0.3
-io.ktor:ktor-client-apache :  3.0.1 -> 3.0.3
-io.ktor:ktor-client-content-negotiation :  3.0.1 -> 3.0.3
-io.ktor:ktor-client-core :  3.0.1 -> 3.0.3
-io.ktor:ktor-client-mock :  3.0.1 -> 3.0.3
-io.ktor:ktor-serialization-jackson :  3.0.1 -> 3.0.3
-io.ktor:ktor-serialization-kotlinx-json :  3.0.1 -> 3.0.3
-io.ktor:ktor-server-auth :  3.0.1 -> 3.0.3
-io.ktor:ktor-server-auth-jwt :  3.0.1 -> 3.0.3
-io.ktor:ktor-server-content-negotiation :  3.0.1 -> 3.0.3
-io.ktor:ktor-server-core :  3.0.1 -> 3.0.3
-io.ktor:ktor-server-cors :  3.0.1 -> 3.0.3
-io.ktor:ktor-server-default-headers :  3.0.1 -> 3.0.3
-io.ktor:ktor-server-html-builder :  3.0.1 -> 3.0.3
-io.ktor:ktor-server-metrics-micrometer :  3.0.1 -> 3.0.3
-io.ktor:ktor-server-netty :  3.0.1 -> 3.0.3
-io.ktor:ktor-server-status-pages :  3.0.1 -> 3.0.3
-io.ktor:ktor-server-test-host :  3.0.1 -> 3.0.3
-io.micrometer:micrometer-registry-prometheus :  1.14.1 -> 1.14.2
-io.mockk:mockk :  1.13.13 -> 1.13.16
-org.flywaydb:flyway-core :  11.0.0 -> 11.1.1
-org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin :  2.0.21 -> 2.1.0
-org.jetbrains.kotlinx:kotlinx-coroutines-core :  1.9.0 -> 1.10.1
-org.junit.jupiter:junit-jupiter-api :  5.11.3 -> 5.11.4
-org.junit.jupiter:junit-jupiter-params :  5.11.3 -> 5.11.4
-**Ignored dependencies
-org.jetbrains.kotlin
-org.gradle.kotlin.kotlin-dsl
