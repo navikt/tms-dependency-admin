@@ -237,3 +237,37 @@ interface TmsKtorTokenSupportDefaults: DependencyGroup {
     val idportenSidecar get() = dependency("idporten-sidecar")
     val idportenSidecarMock get() = dependency("idporten-sidecar-mock")
 }
+
+/*
+2025-02-24 09:04:02: 28 outdated dependencies
+io.github.oshai:kotlin-logging :  7.0.3 -> 7.0.4
+io.ktor:ktor-client-apache :  3.0.3 -> 3.1.0
+io.ktor:ktor-client-content-negotiation :  3.0.3 -> 3.1.0
+io.ktor:ktor-client-core :  3.0.3 -> 3.1.0
+io.ktor:ktor-client-mock :  3.0.3 -> 3.1.0
+io.ktor:ktor-serialization-jackson :  3.0.3 -> 3.1.0
+io.ktor:ktor-serialization-kotlinx-json :  3.0.3 -> 3.1.0
+io.ktor:ktor-server-auth :  3.0.3 -> 3.1.0
+io.ktor:ktor-server-auth-jwt :  3.0.3 -> 3.1.0
+io.ktor:ktor-server-content-negotiation :  3.0.3 -> 3.1.0
+io.ktor:ktor-server-core :  3.0.3 -> 3.1.0
+io.ktor:ktor-server-cors :  3.0.3 -> 3.1.0
+io.ktor:ktor-server-default-headers :  3.0.3 -> 3.1.0
+io.ktor:ktor-server-html-builder :  3.0.3 -> 3.1.0
+io.ktor:ktor-server-metrics-micrometer :  3.0.3 -> 3.1.0
+io.ktor:ktor-server-netty :  3.0.3 -> 3.1.0
+io.ktor:ktor-server-status-pages :  3.0.3 -> 3.1.0
+io.ktor:ktor-server-test-host :  3.0.3 -> 3.1.0
+io.micrometer:micrometer-registry-prometheus :  1.14.2 -> 1.14.4
+org.flywaydb:flyway-core :  11.1.1 -> 11.3.3
+org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin :  2.1.0 -> 2.1.10
+org.junit.jupiter:junit-jupiter-api :  5.11.4 -> 5.12.0
+org.junit.jupiter:junit-jupiter-engine :  5.11.4 -> 5.12.0
+org.junit.jupiter:junit-jupiter-params :  5.11.4 -> 5.12.0
+org.junit.platform:junit-platform-launcher :  1.11.4 -> 1.12.0
+org.postgresql:postgresql :  42.7.4 -> 42.7.5
+org.testcontainers:postgresql :  1.20.4 -> 1.20.5
+org.testcontainers:testcontainers :  1.20.4 -> 1.20.5
+**Ignored dependencies
+org.jetbrains.kotlin
+org.gradle.kotlin.kotlin-dsl
