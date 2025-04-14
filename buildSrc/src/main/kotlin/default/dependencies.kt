@@ -237,3 +237,21 @@ interface TmsKtorTokenSupportDefaults: DependencyGroup {
     val idportenSidecar get() = dependency("idporten-sidecar")
     val idportenSidecarMock get() = dependency("idporten-sidecar-mock")
 }
+
+/*
+2025-04-14 09:04:02: 12 outdated dependencies
+io.github.oshai:kotlin-logging :  7.0.5 -> 7.0.6
+io.micrometer:micrometer-registry-prometheus :  1.14.5 -> 1.14.6
+io.mockk:mockk :  1.13.17 -> 1.14.0
+net.logstash.logback:logstash-logback-encoder :  8.0 -> 8.1
+org.apache.kafka:kafka-clients :  3.9.0 -> 4.0.0
+org.apache.kafka:kafka-streams :  3.9.0 -> 4.0.0
+org.flywaydb:flyway-core :  11.5.0 -> 11.7.0
+org.jetbrains.kotlinx:kotlinx-coroutines-core :  1.10.1 -> 1.10.2
+org.junit.jupiter:junit-jupiter-api :  5.12.1 -> 5.12.2
+org.junit.jupiter:junit-jupiter-engine :  5.12.1 -> 5.12.2
+org.junit.jupiter:junit-jupiter-params :  5.12.1 -> 5.12.2
+org.junit.platform:junit-platform-launcher :  1.12.1 -> 1.12.2
+**Ignored dependencies
+org.jetbrains.kotlin
+org.gradle.kotlin.kotlin-dsl
