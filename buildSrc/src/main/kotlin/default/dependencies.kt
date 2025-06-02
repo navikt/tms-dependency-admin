@@ -237,3 +237,44 @@ interface TmsKtorTokenSupportDefaults: DependencyGroup {
     val idportenSidecar get() = dependency("idporten-sidecar")
     val idportenSidecarMock get() = dependency("idporten-sidecar-mock")
 }
+
+/*
+2025-06-02 09:08:56: 35 outdated dependencies
+com.fasterxml.jackson.datatype:jackson-datatype-jsr310 :  2.18.3 -> 2.19.0
+io.github.oshai:kotlin-logging :  7.0.5 -> 7.0.7
+io.ktor:ktor-client-apache :  3.1.2 -> 3.1.3
+io.ktor:ktor-client-content-negotiation :  3.1.2 -> 3.1.3
+io.ktor:ktor-client-core :  3.1.2 -> 3.1.3
+io.ktor:ktor-client-mock :  3.1.2 -> 3.1.3
+io.ktor:ktor-serialization-jackson :  3.1.2 -> 3.1.3
+io.ktor:ktor-serialization-kotlinx-json :  3.1.2 -> 3.1.3
+io.ktor:ktor-server-auth :  3.1.2 -> 3.1.3
+io.ktor:ktor-server-auth-jwt :  3.1.2 -> 3.1.3
+io.ktor:ktor-server-content-negotiation :  3.1.2 -> 3.1.3
+io.ktor:ktor-server-core :  3.1.2 -> 3.1.3
+io.ktor:ktor-server-cors :  3.1.2 -> 3.1.3
+io.ktor:ktor-server-default-headers :  3.1.2 -> 3.1.3
+io.ktor:ktor-server-html-builder :  3.1.2 -> 3.1.3
+io.ktor:ktor-server-metrics-micrometer :  3.1.2 -> 3.1.3
+io.ktor:ktor-server-netty :  3.1.2 -> 3.1.3
+io.ktor:ktor-server-status-pages :  3.1.2 -> 3.1.3
+io.ktor:ktor-server-test-host :  3.1.2 -> 3.1.3
+io.micrometer:micrometer-registry-prometheus :  1.14.5 -> 1.15.0
+io.mockk:mockk :  1.13.17 -> 1.14.2
+net.logstash.logback:logstash-logback-encoder :  8.0 -> 8.1
+org.apache.kafka:kafka-clients :  3.9.0 -> 4.0.0
+org.apache.kafka:kafka-streams :  3.9.0 -> 4.0.0
+org.apache.kafka:kafka_2.12 :  3.9.0 -> 3.9.1
+org.flywaydb:flyway-core :  11.5.0 -> 11.8.2
+org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin :  2.1.20 -> 2.1.21
+org.jetbrains.kotlinx:kotlinx-coroutines-core :  1.10.1 -> 1.10.2
+org.junit.jupiter:junit-jupiter-api :  5.12.1 -> 5.13.0
+org.junit.jupiter:junit-jupiter-engine :  5.12.1 -> 5.13.0
+org.junit.jupiter:junit-jupiter-params :  5.12.1 -> 5.13.0
+org.junit.platform:junit-platform-launcher :  1.12.1 -> 1.13.0
+org.postgresql:postgresql :  42.7.5 -> 42.7.6
+org.testcontainers:postgresql :  1.20.6 -> 1.21.1
+org.testcontainers:testcontainers :  1.20.6 -> 1.21.1
+**Ignored dependencies
+org.jetbrains.kotlin
+org.gradle.kotlin.kotlin-dsl
