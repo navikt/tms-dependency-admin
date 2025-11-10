@@ -237,3 +237,52 @@ interface TmsKtorTokenSupportDefaults: DependencyGroup {
     val idportenSidecar get() = dependency("idporten-sidecar")
     val idportenSidecarMock get() = dependency("idporten-sidecar-mock")
 }
+
+/*
+2025-11-10 09:04:18: 43 outdated dependencies
+com.fasterxml.jackson.datatype:jackson-datatype-jsr310 :  2.18.3 -> 2.20.1
+com.zaxxer:HikariCP :  6.3.0 -> 7.0.2
+io.github.oshai:kotlin-logging :  7.0.5 -> 7.0.13
+io.jsonwebtoken:jjwt-api :  0.12.6 -> 0.13.0
+io.jsonwebtoken:jjwt-impl :  0.12.6 -> 0.13.0
+io.jsonwebtoken:jjwt-jackson :  0.12.6 -> 0.13.0
+io.jsonwebtoken:jjwt-orgjson :  0.12.6 -> 0.13.0
+io.kotest:kotest-assertions-core :  5.9.1 -> 6.0.4
+io.kotest:kotest-extensions :  5.9.1 -> 6.0.4
+io.kotest:kotest-runner-junit5 :  5.9.1 -> 6.0.4
+io.ktor:ktor-client-apache :  3.1.2 -> 3.3.2
+io.ktor:ktor-client-content-negotiation :  3.1.2 -> 3.3.2
+io.ktor:ktor-client-core :  3.1.2 -> 3.3.2
+io.ktor:ktor-client-mock :  3.1.2 -> 3.3.2
+io.ktor:ktor-serialization-jackson :  3.1.2 -> 3.3.2
+io.ktor:ktor-serialization-kotlinx-json :  3.1.2 -> 3.3.2
+io.ktor:ktor-server-auth :  3.1.2 -> 3.3.2
+io.ktor:ktor-server-auth-jwt :  3.1.2 -> 3.3.2
+io.ktor:ktor-server-content-negotiation :  3.1.2 -> 3.3.2
+io.ktor:ktor-server-core :  3.1.2 -> 3.3.2
+io.ktor:ktor-server-cors :  3.1.2 -> 3.3.2
+io.ktor:ktor-server-default-headers :  3.1.2 -> 3.3.2
+io.ktor:ktor-server-html-builder :  3.1.2 -> 3.3.2
+io.ktor:ktor-server-metrics-micrometer :  3.1.2 -> 3.3.2
+io.ktor:ktor-server-netty :  3.1.2 -> 3.3.2
+io.ktor:ktor-server-status-pages :  3.1.2 -> 3.3.2
+io.ktor:ktor-server-test-host :  3.1.2 -> 3.3.2
+io.micrometer:micrometer-registry-prometheus :  1.14.5 -> 1.16.0
+io.mockk:mockk :  1.13.17 -> 1.14.6
+net.logstash.logback:logstash-logback-encoder :  8.0 -> 9.0
+org.apache.kafka:kafka-clients :  3.9.0 -> 4.1.0
+org.apache.kafka:kafka-streams :  3.9.0 -> 4.1.0
+org.apache.kafka:kafka_2.12 :  3.9.0 -> 3.9.1
+org.flywaydb:flyway-core :  11.5.0 -> 11.16.0
+org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin :  2.1.21 -> 2.2.21
+org.jetbrains.kotlinx:kotlinx-coroutines-core :  1.10.1 -> 1.10.2
+org.junit.jupiter:junit-jupiter-api :  5.12.1 -> 6.0.1
+org.junit.jupiter:junit-jupiter-engine :  5.12.1 -> 6.0.1
+org.junit.jupiter:junit-jupiter-params :  5.12.1 -> 6.0.1
+org.junit.platform:junit-platform-launcher :  1.12.1 -> 6.0.1
+org.postgresql:postgresql :  42.7.5 -> 42.7.8
+org.testcontainers:postgresql :  1.20.6 -> 1.21.3
+org.testcontainers:testcontainers :  1.20.6 -> 2.0.1
+**Ignored dependencies
+org.jetbrains.kotlin
+org.gradle.kotlin.kotlin-dsl
