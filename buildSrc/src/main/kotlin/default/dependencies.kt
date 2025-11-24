@@ -244,3 +244,20 @@ interface TmsKtorTokenSupportDefaults: DependencyGroup {
     val idportenSidecar get() = dependency("idporten-sidecar")
     val idportenSidecarMock get() = dependency("idporten-sidecar-mock")
 }
+
+/*
+2025-11-24 09:04:48: 11 outdated dependencies
+io.kotest:kotest-assertions-core :  6.0.4 -> 6.0.5
+io.kotest:kotest-extensions :  6.0.4 -> 6.0.5
+io.kotest:kotest-runner-junit5 :  6.0.4 -> 6.0.5
+io.prometheus:prometheus-metrics-core :  1.3.4 -> 1.4.3
+io.prometheus:prometheus-metrics-exporter-common :  1.3.4 -> 1.4.3
+org.apache.kafka:kafka-clients :  3.9.0 -> 4.1.1
+org.apache.kafka:kafka-streams :  3.9.0 -> 4.1.1
+org.apache.kafka:kafka_2.12 :  3.9.0 -> 3.9.1
+org.flywaydb:flyway-core :  11.16.0 -> 11.17.1
+org.testcontainers:testcontainers :  2.0.1 -> 2.0.2
+org.testcontainers:testcontainers-postgresql :  2.0.1 -> 2.0.2
+**Ignored dependencies
+org.jetbrains.kotlin
+org.gradle.kotlin.kotlin-dsl
