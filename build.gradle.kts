@@ -26,8 +26,6 @@ dependencies {
     implementation(Jjwt.jackson)
     implementation(Jjwt.orgjson)
     implementation(Kafka.clients)
-    implementation(Kafka.kafka_2_12)
-    implementation(Kafka.streams)
     implementation(Kluent.kluent)
     implementation(Kotest.runnerJunit5)
     implementation(Kotest.assertionsCore)
