@@ -242,3 +242,35 @@ interface TmsKtorTokenSupportDefaults: DependencyGroup {
     val idportenSidecar get() = dependency("idporten-sidecar")
     val idportenSidecarMock get() = dependency("idporten-sidecar-mock")
 }
+
+/*
+2025-12-08 09:06:27: 26 outdated dependencies
+io.kotest:kotest-assertions-core :  6.0.4 -> 6.0.7
+io.kotest:kotest-extensions :  6.0.4 -> 6.0.7
+io.kotest:kotest-runner-junit5 :  6.0.4 -> 6.0.7
+io.ktor:ktor-client-apache :  3.3.2 -> 3.3.3
+io.ktor:ktor-client-content-negotiation :  3.3.2 -> 3.3.3
+io.ktor:ktor-client-core :  3.3.2 -> 3.3.3
+io.ktor:ktor-client-mock :  3.3.2 -> 3.3.3
+io.ktor:ktor-serialization-jackson :  3.3.2 -> 3.3.3
+io.ktor:ktor-serialization-kotlinx-json :  3.3.2 -> 3.3.3
+io.ktor:ktor-server-auth :  3.3.2 -> 3.3.3
+io.ktor:ktor-server-auth-jwt :  3.3.2 -> 3.3.3
+io.ktor:ktor-server-content-negotiation :  3.3.2 -> 3.3.3
+io.ktor:ktor-server-core :  3.3.2 -> 3.3.3
+io.ktor:ktor-server-cors :  3.3.2 -> 3.3.3
+io.ktor:ktor-server-default-headers :  3.3.2 -> 3.3.3
+io.ktor:ktor-server-html-builder :  3.3.2 -> 3.3.3
+io.ktor:ktor-server-metrics-micrometer :  3.3.2 -> 3.3.3
+io.ktor:ktor-server-netty :  3.3.2 -> 3.3.3
+io.ktor:ktor-server-status-pages :  3.3.2 -> 3.3.3
+io.ktor:ktor-server-test-host :  3.3.2 -> 3.3.3
+io.mockk:mockk :  1.14.6 -> 1.14.7
+io.prometheus:prometheus-metrics-core :  1.3.4 -> 1.4.3
+io.prometheus:prometheus-metrics-exporter-common :  1.3.4 -> 1.4.3
+org.flywaydb:flyway-core :  11.16.0 -> 11.18.0
+org.testcontainers:testcontainers :  2.0.1 -> 2.0.2
+org.testcontainers:testcontainers-postgresql :  2.0.1 -> 2.0.2
+**Ignored dependencies
+org.jetbrains.kotlin
+org.gradle.kotlin.kotlin-dsl
