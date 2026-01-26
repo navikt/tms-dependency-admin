@@ -243,3 +243,40 @@ interface TmsKtorTokenSupportDefaults: DependencyGroup {
     val idportenSidecar get() = dependency("idporten-sidecar")
     val idportenSidecarMock get() = dependency("idporten-sidecar-mock")
 }
+
+/*
+2026-01-26 09:09:24: 31 outdated dependencies
+ch.qos.logback:logback-classic :  1.5.24 -> 1.5.26
+com.fasterxml.jackson.datatype:jackson-datatype-jsr310 :  2.20.1 -> 2.21.0
+io.kotest:kotest-assertions-core :  6.0.4 -> 6.1.1
+io.kotest:kotest-extensions :  6.0.4 -> 6.1.1
+io.kotest:kotest-runner-junit5 :  6.0.4 -> 6.1.1
+io.ktor:ktor-client-apache :  3.3.2 -> 3.4.0
+io.ktor:ktor-client-content-negotiation :  3.3.2 -> 3.4.0
+io.ktor:ktor-client-core :  3.3.2 -> 3.4.0
+io.ktor:ktor-client-mock :  3.3.2 -> 3.4.0
+io.ktor:ktor-serialization-jackson :  3.3.2 -> 3.4.0
+io.ktor:ktor-serialization-kotlinx-json :  3.3.2 -> 3.4.0
+io.ktor:ktor-server-auth :  3.3.2 -> 3.4.0
+io.ktor:ktor-server-auth-jwt :  3.3.2 -> 3.4.0
+io.ktor:ktor-server-content-negotiation :  3.3.2 -> 3.4.0
+io.ktor:ktor-server-core :  3.3.2 -> 3.4.0
+io.ktor:ktor-server-cors :  3.3.2 -> 3.4.0
+io.ktor:ktor-server-default-headers :  3.3.2 -> 3.4.0
+io.ktor:ktor-server-html-builder :  3.3.2 -> 3.4.0
+io.ktor:ktor-server-metrics-micrometer :  3.3.2 -> 3.4.0
+io.ktor:ktor-server-netty :  3.3.2 -> 3.4.0
+io.ktor:ktor-server-status-pages :  3.3.2 -> 3.4.0
+io.ktor:ktor-server-test-host :  3.3.2 -> 3.4.0
+io.micrometer:micrometer-registry-prometheus :  1.16.0 -> 1.16.2
+io.mockk:mockk :  1.14.6 -> 1.14.7
+io.prometheus:prometheus-metrics-core :  1.3.4 -> 1.4.3
+io.prometheus:prometheus-metrics-exporter-common :  1.3.4 -> 1.4.3
+org.flywaydb:flyway-core :  11.16.0 -> 11.20.2
+org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin :  2.2.21 -> 2.3.0
+org.postgresql:postgresql :  42.7.8 -> 42.7.9
+org.testcontainers:testcontainers :  2.0.1 -> 2.0.3
+org.testcontainers:testcontainers-postgresql :  2.0.1 -> 2.0.3
+**Ignored dependencies
+org.jetbrains.kotlin
+org.gradle.kotlin.kotlin-dsl
