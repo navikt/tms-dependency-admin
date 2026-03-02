@@ -243,3 +243,46 @@ interface TmsKtorTokenSupportDefaults: DependencyGroup {
     val idportenSidecar get() = dependency("idporten-sidecar")
     val idportenSidecarMock get() = dependency("idporten-sidecar-mock")
 }
+
+/*
+2026-03-02 09:16:24: 37 outdated dependencies
+ch.qos.logback:logback-classic :  1.5.24 -> 1.5.32
+com.fasterxml.jackson.datatype:jackson-datatype-jsr310 :  2.20.1 -> 2.21.1
+io.github.oshai:kotlin-logging :  7.0.14 -> 8.0.01
+io.kotest:kotest-assertions-core :  6.0.4 -> 6.1.4
+io.kotest:kotest-extensions :  6.0.4 -> 6.1.4
+io.kotest:kotest-runner-junit5 :  6.0.4 -> 6.1.4
+io.ktor:ktor-client-apache :  3.3.2 -> 3.4.0
+io.ktor:ktor-client-content-negotiation :  3.3.2 -> 3.4.0
+io.ktor:ktor-client-core :  3.3.2 -> 3.4.0
+io.ktor:ktor-client-mock :  3.3.2 -> 3.4.0
+io.ktor:ktor-serialization-jackson :  3.3.2 -> 3.4.0
+io.ktor:ktor-serialization-kotlinx-json :  3.3.2 -> 3.4.0
+io.ktor:ktor-server-auth :  3.3.2 -> 3.4.0
+io.ktor:ktor-server-auth-jwt :  3.3.2 -> 3.4.0
+io.ktor:ktor-server-content-negotiation :  3.3.2 -> 3.4.0
+io.ktor:ktor-server-core :  3.3.2 -> 3.4.0
+io.ktor:ktor-server-cors :  3.3.2 -> 3.4.0
+io.ktor:ktor-server-default-headers :  3.3.2 -> 3.4.0
+io.ktor:ktor-server-html-builder :  3.3.2 -> 3.4.0
+io.ktor:ktor-server-metrics-micrometer :  3.3.2 -> 3.4.0
+io.ktor:ktor-server-netty :  3.3.2 -> 3.4.0
+io.ktor:ktor-server-status-pages :  3.3.2 -> 3.4.0
+io.ktor:ktor-server-test-host :  3.3.2 -> 3.4.0
+io.micrometer:micrometer-registry-prometheus :  1.16.0 -> 1.16.3
+io.mockk:mockk :  1.14.6 -> 1.14.9
+io.prometheus:prometheus-metrics-core :  1.3.4 -> 1.5.0
+io.prometheus:prometheus-metrics-exporter-common :  1.3.4 -> 1.5.0
+org.apache.kafka:kafka-clients :  4.1.1 -> 4.2.0
+org.flywaydb:flyway-core :  11.16.0 -> 12.0.3
+org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin :  2.2.21 -> 2.3.10
+org.junit.jupiter:junit-jupiter-api :  6.0.2 -> 6.0.3
+org.junit.jupiter:junit-jupiter-engine :  6.0.2 -> 6.0.3
+org.junit.jupiter:junit-jupiter-params :  6.0.2 -> 6.0.3
+org.junit.platform:junit-platform-launcher :  6.0.2 -> 6.0.3
+org.postgresql:postgresql :  42.7.8 -> 42.7.10
+org.testcontainers:testcontainers :  2.0.1 -> 2.0.3
+org.testcontainers:testcontainers-postgresql :  2.0.1 -> 2.0.3
+**Ignored dependencies
+org.jetbrains.kotlin
+org.gradle.kotlin.kotlin-dsl
