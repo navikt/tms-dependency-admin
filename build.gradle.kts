@@ -45,7 +45,7 @@ dependencies {
     implementation(Ktor.Server.htmlDsl)
     implementation(Ktor.Server.cors)
     implementation(Ktor.Client.core)
-    implementation(Ktor.Client.apache)
+    implementation(Ktor.Client.apache5)
     implementation(Ktor.Client.contentNegotiation)
     implementation(Ktor.Serialization.kotlinX)
     implementation(Ktor.Serialization.jackson)
