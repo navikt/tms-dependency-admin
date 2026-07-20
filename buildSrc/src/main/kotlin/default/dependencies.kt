@@ -242,3 +242,48 @@ interface TmsKtorTokenSupportDefaults: DependencyGroup {
     val userTokenVerificationMock get() = dependency("user-token-verification-mock")
     val userTokenExchange get() = dependency("user-token-exchange")
 }
+
+/*
+2026-07-20 10:02:08: 39 outdated dependencies
+ch.qos.logback:logback-classic :  1.5.32 -> 1.5.38
+com.fasterxml.jackson.datatype:jackson-datatype-jsr310 :  2.21.2 -> 2.22.1
+com.zaxxer:HikariCP :  7.0.2 -> 7.1.0
+io.github.oshai:kotlin-logging :  8.0.01 -> 8.0.4
+io.kotest:kotest-assertions-core :  6.1.11 -> 6.2.2
+io.kotest:kotest-extensions :  6.1.11 -> 6.2.2
+io.kotest:kotest-runner-junit5 :  6.1.11 -> 6.2.2
+io.ktor:ktor-client-apache5 :  3.4.2 -> 3.5.1
+io.ktor:ktor-client-content-negotiation :  3.4.2 -> 3.5.1
+io.ktor:ktor-client-core :  3.4.2 -> 3.5.1
+io.ktor:ktor-client-mock :  3.4.2 -> 3.5.1
+io.ktor:ktor-serialization-jackson :  3.4.2 -> 3.5.1
+io.ktor:ktor-serialization-kotlinx-json :  3.4.2 -> 3.5.1
+io.ktor:ktor-server-auth :  3.4.2 -> 3.5.1
+io.ktor:ktor-server-auth-jwt :  3.4.2 -> 3.5.1
+io.ktor:ktor-server-content-negotiation :  3.4.2 -> 3.5.1
+io.ktor:ktor-server-core :  3.4.2 -> 3.5.1
+io.ktor:ktor-server-cors :  3.4.2 -> 3.5.1
+io.ktor:ktor-server-default-headers :  3.4.2 -> 3.5.1
+io.ktor:ktor-server-html-builder :  3.4.2 -> 3.5.1
+io.ktor:ktor-server-metrics-micrometer :  3.4.2 -> 3.5.1
+io.ktor:ktor-server-netty :  3.4.2 -> 3.5.1
+io.ktor:ktor-server-status-pages :  3.4.2 -> 3.5.1
+io.ktor:ktor-server-test-host :  3.4.2 -> 3.5.1
+io.micrometer:micrometer-registry-prometheus :  1.16.5 -> 1.17.0
+io.mockk:mockk :  1.14.9 -> 1.14.11
+io.prometheus:prometheus-metrics-core :  1.5.1 -> 1.8.0
+io.prometheus:prometheus-metrics-exporter-common :  1.5.1 -> 1.8.0
+org.apache.kafka:kafka-clients :  4.2.0 -> 4.3.1
+org.flywaydb:flyway-core :  12.4.0 -> 12.11.0
+org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin :  2.3.20 -> 2.4.10
+org.jetbrains.kotlinx:kotlinx-coroutines-core :  1.10.2 -> 1.11.0
+org.junit.jupiter:junit-jupiter-api :  6.0.3 -> 6.1.2
+org.junit.jupiter:junit-jupiter-engine :  6.0.3 -> 6.1.2
+org.junit.jupiter:junit-jupiter-params :  6.0.3 -> 6.1.2
+org.junit.platform:junit-platform-launcher :  6.0.3 -> 6.1.2
+org.postgresql:postgresql :  42.7.10 -> 42.7.13
+org.testcontainers:testcontainers :  2.0.4 -> 2.0.5
+org.testcontainers:testcontainers-postgresql :  2.0.4 -> 2.0.5
+**Ignored dependencies
+org.jetbrains.kotlin
+org.gradle.kotlin.kotlin-dsl
