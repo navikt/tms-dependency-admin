@@ -7,15 +7,21 @@ SCOPE_HEADER=$(curl -X HEAD https://api.github.com -H "Authorization: token $API
 IFS=', ' read -r -a TOKEN_SCOPES <<< $(echo $SCOPE_HEADER | sed 's/x-oauth-scopes: \(.*\)\r/\1/')
 
 echo "hentet token med scope"
+
+if [ ${#TOKEN_SCOPES[@]} -eq 0 ]; then
+  echo "token har ikke scope"
+  exit 1
+fi
+
 printf '%s' "${TOKEN_SCOPES[@]}"
 
 ## Check whether token has required scopes
-if [[ ! " ${TOKEN_SCOPES[@]} " =~ " repo " ]]; then
+if [[ ! " ${TOKEN_SCOPES[*]} " =~ " repo " ]]; then
   echo "API_ACCESS_TOKEN mangler 'repo' scope"
   exit 1
 fi
 
-if [[ ! " ${TOKEN_SCOPES[@]} " =~ " workflow " ]]; then
+if [[ ! " ${TOKEN_SCOPES[*]} " =~ " workflow " ]]; then
   echo "API_ACCESS_TOKEN mangler 'workflow' scope"
   exit 1
 fi
