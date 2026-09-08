@@ -6,6 +6,9 @@ SCOPE_HEADER=$(curl -X HEAD https://api.github.com -H "Authorization: token $API
 ## Extract scopes from header
 IFS=', ' read -r -a TOKEN_SCOPES <<< $(echo $SCOPE_HEADER | sed 's/x-oauth-scopes: \(.*\)\r/\1/')
 
+echo "hentet token med scope"
+printf '%s' "${TOKEN_SCOPES[@]}"
+
 ## Check whether token has required scopes
 if [[ ! " ${TOKEN_SCOPES[@]} " =~ " repo " ]]; then
   echo "API_ACCESS_TOKEN mangler 'repo' scope"
