@@ -243,3 +243,12 @@ interface TmsKtorTokenSupportDefaults: DependencyGroup {
     val userTokenVerificationMock get() = dependency("user-token-verification-mock")
     val userTokenExchange get() = dependency("user-token-exchange")
 }
+
+/*
+2026-10-05 09:15:58: 3 outdated dependencies
+ch.qos.logback:logback-classic :  1.6.3 -> 1.6.5
+com.fasterxml.jackson.datatype:jackson-datatype-jsr310 :  2.22.2 -> 2.22.3
+org.flywaydb:flyway-core :  13.7.0 -> 13.9.0
+**Ignored dependencies
+org.jetbrains.kotlin
+org.gradle.kotlin.kotlin-dsl
