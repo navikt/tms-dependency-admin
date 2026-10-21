@@ -1,0 +1,21 @@
+name: Test-Catalog-Versioning
+
+on:
+  merge_group:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'gradle/libs.versions.toml'
+
+jobs:
+  test-catalog-versioning:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v6
+      - name: Verify Catalog Versioning
+        run: ./gradlew :dependency-verify:verifyVersionCatalogResolves

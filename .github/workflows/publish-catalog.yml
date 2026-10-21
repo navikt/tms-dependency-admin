@@ -1,0 +1,40 @@
+name: Publish catalog
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'gradle/libs.versions.toml'
+
+
+jobs:
+  publish-catalog:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v6
+      - name: Verify version catalog
+        run: ./gradlew :dependency-verify:verifyVersionCatalogResolves
+      - name: Set release version
+        run: |
+          TAG_NAME="$(TZ=Europe/Oslo date +%Y%m%d).${GITHUB_RUN_NUMBER}.${GITHUB_RUN_ATTEMPT}"
+          echo "RELEASE_TAG=$TAG_NAME" >> "$GITHUB_ENV"
+      - name: Publish catalog
+        run: ./gradlew :publishMavenPublicationToGitHubPackagesRepository
+        env:
+          ORG_GRADLE_PROJECT_catalogVersion: ${{ env.RELEASE_TAG }}
+          ORG_GRADLE_PROJECT_githubUsername: ${{ github.actor }}
+          ORG_GRADLE_PROJECT_githubPassword: ${{ secrets.GITHUB_TOKEN }}
+      - uses: ncipollo/release-action@339a81892b84b4eeb0f6e744e4574d79d0d9b8dd # ratchet:ncipollo/release-action@v1
+        with:
+          tag: ${{ env.RELEASE_TAG }}
+          commit: ${{ github.sha }}
+          generateReleaseNotes: true
+          makeLatest: true # Versjonnummerene er ikke semantiske
