@@ -71,7 +71,7 @@ ktor-serialization-jackson = { group = "io.ktor", name = "ktor-serialization-jac
 ktor-test-client = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
 ktor-test-server = { group = "io.ktor", name = "ktor-server-test-host", version.ref = "ktor" }
 
-logback-classic = { group = "ch.qos.logback", name = "logback-classic", version = "1.6.3" }
+logback-classic = { group = "ch.qos.logback", name = "logback-classic", version = "1.6.5" }
 logback-encoder = { group = "net.logstash.logback", name = "logstash-logback-encoder", version = "9.0" }
 
 registry-prometheus = { group = "io.micrometer", name = "micrometer-registry-prometheus", version = "1.17.1" }
