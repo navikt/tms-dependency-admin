@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - feat-supported-by-dependabot-dependency-administration
     paths:
       - 'gradle/libs.versions.toml'
 
