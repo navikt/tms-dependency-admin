@@ -127,4 +127,5 @@ tms-ktor = [ "tms-ktor-support-entraId", "tms-ktor-support-entraId-fetcher", "tm
 "tms-ktor-support-exchange", "tms-ktor-support-verification", "tms-ktor-support-verification-mock" ]
 
 [plugins]
-kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin"}
+kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

@@ -8,25 +8,28 @@ repositories {
     maven("https://github-package-registry-mirror.gc.nav.no/cached/maven-release")
 }
 
-val versionDependency = project.rootProject.extensions
-    .getByType<VersionCatalogsExtension>().named("libs")
+val catalogs = rootProject.extensions.getByType<VersionCatalogsExtension>()
 
 tasks.register("verifyVersionCatalogResolves") {
+    description = "Test that all dependencies in the version catalog resolves"
     doLast {
-        val notations = versionDependency.libraryAliases.map { alias ->
-            versionDependency.findLibrary(alias).get().get().let {
-                "${it.module.group}:${it.module.name}:${it.versionConstraint.requiredVersion}"
+        val failures = catalogs.flatMap { catalog ->
+            catalog.libraryAliases.mapNotNull { alias ->
+                val dependency = catalog.findLibrary(alias).get().get()
+
+                try {
+                    configurations.detachedConfiguration(
+                        dependencies.create(dependency)
+                    ).resolve()
+                    null
+                } catch (e: ResolveException) {
+                    "${catalog.name}.$alias: ${dependency.name}: ${e.message}"
+                }
             }
         }
 
-        val failures = notations.mapNotNull { notation ->
-            runCatching {
-                configurations.detachedConfiguration(dependencies.create(notation)).resolve()
-            }.exceptionOrNull()?.let { "$notation -> ${it.message}" }
-        }
-
-        require(failures.isEmpty()) {
-            "Følgende kunne ikke resolves:\n${failures.joinToString("\n")}"
+        check(failures.isEmpty()) {
+            "Dependencies failed to resolve:\n${failures.joinToString("\n")}\n"
         }
 
         println("All dependencies resolved successfully")

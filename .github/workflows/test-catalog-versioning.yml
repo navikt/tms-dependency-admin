@@ -6,6 +6,7 @@ on:
   pull_request:
     paths:
       - 'gradle/libs.versions.toml'
+      - 'additionalCatalogs/tms.utkast.versions.toml'
 
 jobs:
   test-catalog-versioning:

@@ -6,7 +6,7 @@ on:
       - feat-supported-by-dependabot-dependency-administration
     paths:
       - 'gradle/libs.versions.toml'
-
+      - 'additionalCatalogs/tms.utkast.versions.toml'
 
 jobs:
   publish-catalog:
@@ -27,8 +27,25 @@ jobs:
         run: |
           TAG_NAME="$(TZ=Europe/Oslo date +%Y%m%d).${GITHUB_RUN_NUMBER}.${GITHUB_RUN_ATTEMPT}"
           echo "RELEASE_TAG=$TAG_NAME" >> "$GITHUB_ENV"
-      - name: Publish catalog
+      - uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          base: ${{ github.ref_name }}
+          filters: |
+            default:
+              - 'gradle/libs.versions.toml'
+            utkast:
+              - 'additionalCatalogs/tms.utkast.versions.toml'
+      - name: Publish default catalog
+        if: steps.changes.outputs.default == 'true'
         run: ./gradlew :publishMavenPublicationToGitHubPackagesRepository
+        env:
+          ORG_GRADLE_PROJECT_catalogVersion: ${{ env.RELEASE_TAG }}
+          ORG_GRADLE_PROJECT_githubUsername: ${{ github.actor }}
+          ORG_GRADLE_PROJECT_githubPassword: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish utkast catalog
+        if: steps.changes.outputs.utkast == 'true'
+        run: ./gradlew :utkast-catalog:publishMavenPublicationToGitHubPackagesRepository
         env:
           ORG_GRADLE_PROJECT_catalogVersion: ${{ env.RELEASE_TAG }}
           ORG_GRADLE_PROJECT_githubUsername: ${{ github.actor }}
