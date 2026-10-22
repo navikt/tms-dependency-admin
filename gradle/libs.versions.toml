@@ -2,7 +2,7 @@
 format.version = "1.1"
 
 [versions]
-flyway = "13.7.0"
+flyway = "13.8.0"
 jacksonDatatype = "2.22.2"
 jjwt = "0.13.0"
 junitJupiter = "6.1.3"
