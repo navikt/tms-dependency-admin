@@ -11,7 +11,7 @@ val gitHubPackagesUrl = URI("https://maven.pkg.github.com/navikt/tms-dependency-
 
 catalog {
     versionCatalog {
-        from(files("../additionalCatalogs/tms.utkast.version.toml"))
+        from(files("../additionalCatalogs/tms.utkast.versions.toml"))
     }
 }
 
