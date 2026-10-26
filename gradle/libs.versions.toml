@@ -52,23 +52,23 @@ kotli-query = { group = "com.github.seratch", name = "kotliquery", version = "1.
 
 ktor-server-core = { group = "io.ktor", name = "ktor-server-core", version.ref = "ktor" }
 ktor-server-netty = { group = "io.ktor", name = "ktor-server-netty", version.ref = "ktor" }
-ktor-server-header = { group = "io.ktor", name = "ktor-server-default-headers", version.ref = "ktor" }
+ktor-server-defaultheader = { group = "io.ktor", name = "ktor-server-default-headers", version.ref = "ktor" }
 ktor-server-metrics = { group = "io.ktor", name = "ktor-server-metrics-micrometer", version.ref = "ktor" }
 ktor-server-auth = { group = "io.ktor", name = "ktor-server-auth", version.ref = "ktor" }
 ktor-server-authJwt = { group = "io.ktor", name = "ktor-server-auth-jwt", version.ref = "ktor" }
-ktor-server-content = { group = "io.ktor", name = "ktor-server-content-negotiation", version.ref = "ktor" }
-ktor-server-status = { group = "io.ktor", name = "ktor-server-status-pages", version.ref = "ktor" }
+ktor-server-contentNegotiation = { group = "io.ktor", name = "ktor-server-content-negotiation", version.ref = "ktor" }
+ktor-server-statusPages = { group = "io.ktor", name = "ktor-server-status-pages", version.ref = "ktor" }
 ktor-server-html = { group = "io.ktor", name = "ktor-server-html-builder", version.ref = "ktor" }
 ktor-server-cors = { group = "io.ktor", name = "ktor-server-cors", version.ref = "ktor" }
 
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-apache5 = { group = "io.ktor", name = "ktor-client-apache5", version.ref = "ktor" }
-ktor-client-content = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-contentNegotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 
 ktor-serialization-kotlinx = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-serialization-jackson = { group = "io.ktor", name = "ktor-serialization-jackson", version.ref = "ktor" }
 
-ktor-test-client = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
+ktor-test-mock-client = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
 ktor-test-server = { group = "io.ktor", name = "ktor-server-test-host", version.ref = "ktor" }
 
 logback-classic = { group = "ch.qos.logback", name = "logback-classic", version = "1.6.5" }
@@ -76,55 +76,51 @@ logback-encoder = { group = "net.logstash.logback", name = "logstash-logback-enc
 
 registry-prometheus = { group = "io.micrometer", name = "micrometer-registry-prometheus", version = "1.17.1" }
 
-mockk-default = { group = "io.mockk", name = "mockk", version = "1.14.11" }
+mockk = { group = "io.mockk", name = "mockk", version = "1.14.11" }
 
-postgresql-default = { group = "org.postgresql", name = "postgresql", version = "42.7.13" }
+postgresql = { group = "org.postgresql", name = "postgresql", version = "42.7.13" }
 
 prometheus-metric-core = { group = "io.prometheus", name = "prometheus-metrics-core", version.ref = "prometheus" }
 prometheus-exporter = { group = "io.prometheus", name = "prometheus-metrics-exporter-common", version.ref = "prometheus" }
 
-test-container-junit = { group = "org.testcontainers", name = "testcontainers-junit-jupiter", version.ref = "testContainer" }
-test-container-core = { group = "org.testcontainers", name = "testcontainers", version.ref = "testContainer" }
-test-container-postgresql = { group = "org.testcontainers", name = "testcontainers-postgresql", version.ref = "testContainer" }
+testContainer-junit = { group = "org.testcontainers", name = "testcontainers-junit-jupiter", version.ref = "testContainer" }
+testContainer-core = { group = "org.testcontainers", name = "testcontainers", version.ref = "testContainer" }
+testContainer-postgresql = { group = "org.testcontainers", name = "testcontainers-postgresql", version.ref = "testContainer" }
 
-tms-common-lib-kubernetes = { group = "no.nav.tms.common", name = "kubernetes", version.ref = "tmsCommonLib" }
-tms-common-lib-metrics = { group = "no.nav.tms.common", name = "metrics", version.ref = "tmsCommonLib" }
-tms-common-lib-observability = { group = "no.nav.tms.common", name = "observability", version.ref = "tmsCommonLib" }
-tms-common-lib-postgres = { group = "no.nav.tms.common", name = "postgres", version.ref = "tmsCommonLib" }
-tms-common-lib-teamLogger = { group = "no.nav.tms.common", name = "team-logger", version.ref = "tmsCommonLib" }
-tms-common-lib-utils = { group = "no.nav.tms.common", name = "utils", version.ref = "tmsCommonLib" }
+tms-commonLib-kubernetes = { group = "no.nav.tms.common", name = "kubernetes", version.ref = "tmsCommonLib" }
+tms-commonLib-metrics = { group = "no.nav.tms.common", name = "metrics", version.ref = "tmsCommonLib" }
+tms-commonLib-observability = { group = "no.nav.tms.common", name = "observability", version.ref = "tmsCommonLib" }
+tms-commonLib-postgres = { group = "no.nav.tms.common", name = "postgres", version.ref = "tmsCommonLib" }
+tms-commonLib-teamLogger = { group = "no.nav.tms.common", name = "team-logger", version.ref = "tmsCommonLib" }
+tms-commonLib-utils = { group = "no.nav.tms.common", name = "utils", version.ref = "tmsCommonLib" }
 
-tms-kafka-tools-application = { group = "no.nav.tms.kafka", name = "kafka-application", version.ref = "tmsKafkaTools" }
-tms-kafka-tools-producer = { group = "no.nav.tms.kafka", name = "kafka-producer-utils", version.ref = "tmsKafkaTools" }
+tms-kafkaTools-application = { group = "no.nav.tms.kafka", name = "kafka-application", version.ref = "tmsKafkaTools" }
+tms-kafkaTools-producer = { group = "no.nav.tms.kafka", name = "kafka-producer-utils", version.ref = "tmsKafkaTools" }
 
-tms-ktor-support-entraId = { group = "no.nav.tms.token.support", name = "entra-id-token-verification", version.ref = "tmsKtorSupport" }
-tms-ktor-support-entraId-mock = { group = "no.nav.tms.token.support", name = "entra-id-token-verification-mock", version.ref = "tmsKtorSupport" }
-tms-ktor-support-entraId-fetcher = { group = "no.nav.tms.token.support", name = "entra-id-token-fetcher", version.ref = "tmsKtorSupport" }
-tms-ktor-support-entraId-login = { group = "no.nav.tms.token.support", name = "user-login-routes", version.ref = "tmsKtorSupport" }
-tms-ktor-support-verification = { group = "no.nav.tms.token.support", name = "user-token-verification", version.ref = "tmsKtorSupport" }
-tms-ktor-support-verification-mock = { group = "no.nav.tms.token.support", name = "user-token-verification-mock", version.ref = "tmsKtorSupport" }
-tms-ktor-support-exchange = { group = "no.nav.tms.token.support", name = "user-token-exchange", version.ref = "tmsKtorSupport" }
+tms-ktor-tokenSupport-entraId = { group = "no.nav.tms.token.support", name = "entra-id-token-verification", version.ref = "tmsKtorSupport" }
+tms-ktor-tokenSupport-mock-entraId = { group = "no.nav.tms.token.support", name = "entra-id-token-verification-mock", version.ref = "tmsKtorSupport" }
+tms-ktor-tokenSupport-entraId-fetcher = { group = "no.nav.tms.token.support", name = "entra-id-token-fetcher", version.ref = "tmsKtorSupport" }
+tms-ktor-tokenSupport-userLoginRoutes = { group = "no.nav.tms.token.support", name = "user-login-routes", version.ref = "tmsKtorSupport" }
+tms-ktor-tokenSupport-userTokenVerification = { group = "no.nav.tms.token.support", name = "user-token-verification", version.ref = "tmsKtorSupport" }
+tms-ktor-tokenSupport-mock-userTokenVerification = { group = "no.nav.tms.token.support", name = "user-token-verification-mock", version.ref = "tmsKtorSupport" }
+tms-ktor-tokenSupport-exchange = { group = "no.nav.tms.token.support", name = "user-token-exchange", version.ref = "tmsKtorSupport" }
 
 
 [bundles]
 flyway = ["flyway-core", "flyway-postgres"]
 jackson = [ "jackson-datatypeJsr310", "jackson-moduleKotlin" ]
 jjwt = [ "jjwt-api", "jjwt-jackson", "jjwt-impl", "jjwt-orgjson" ]
-junit = [ "junit-api", "junit-engine", "junit-launcher", "junit-params" ]
+junit = [ "junit-api", "junit-engine", "junit-launcher"]
 kotest = [ "kotest-assertion", "kotest-extensions", "kotest-runner" ]
 kotlin = [ "kotli-query", "kotlin", "kotlin-logging", "kotlinx" ]
-ktor-server = [ "ktor-server-auth", "ktor-server-authJwt", "ktor-server-content", "ktor-server-core", "ktor-server-cors",
-"ktor-server-header", "ktor-server-html", "ktor-server-metrics", "ktor-server-netty", "ktor-server-status" ]
-ktor-client = [ "ktor-client-core", "ktor-client-content", "ktor-client-apache5" ]
-ktor-serialization = [ "ktor-serialization-kotlinx", "ktor-serialization-jackson" ]
+ktor-server = [ "ktor-server-auth", "ktor-server-authJwt", "ktor-server-contentNegotiation", "ktor-server-core", "ktor-server-cors", "ktor-server-netty", "ktor-server-statusPages" ]
+ktor-client = [ "ktor-client-core", "ktor-client-contentNegotiation", "ktor-client-apache5" ]
 logback = [ "logback-classic", "logback-encoder" ]
 prometheus = [ "prometheus-exporter", "prometheus-metric-core", "registry-prometheus" ]
-test-container = [ "test-container-core", "test-container-junit", "test-container-postgresql" ]
-tms-common = [ "tms-common-lib-kubernetes", "tms-common-lib-metrics", "tms-common-lib-observability", "tms-common-lib-postgres",
-"tms-common-lib-teamLogger", "tms-common-lib-utils" ]
-tms-kafka = [ "tms-kafka-tools-application", "tms-kafka-tools-producer" ]
-tms-ktor = [ "tms-ktor-support-entraId", "tms-ktor-support-entraId-fetcher", "tms-ktor-support-entraId-login", "tms-ktor-support-entraId-mock",
-"tms-ktor-support-exchange", "tms-ktor-support-verification", "tms-ktor-support-verification-mock" ]
+test-container = [ "testContainer-core", "testContainer-junit", "testContainer-postgresql" ]
+tms-common = [ "tms-commonLib-kubernetes", "tms-commonLib-metrics", "tms-commonLib-observability", "tms-commonLib-postgres",
+"tms-commonLib-teamLogger", "tms-commonLib-utils" ]
+tms-kafka = [ "tms-kafkaTools-application", "tms-kafkaTools-producer" ]
 
 [plugins]
 kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
