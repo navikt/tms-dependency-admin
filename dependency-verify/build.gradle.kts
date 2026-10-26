@@ -9,11 +9,14 @@ repositories {
 }
 
 val catalogs = rootProject.extensions.getByType<VersionCatalogsExtension>()
+val catalogToVerify = providers.gradleProperty("catalogToVerify")
 
 tasks.register("verifyVersionCatalogResolves") {
     description = "Test that all dependencies in the version catalog resolves"
     doLast {
-        val failures = catalogs.flatMap { catalog ->
+        val selectedCatalogs = catalogToVerify.orNull?.let { listOf(catalogs.named(it)) }
+            ?: catalogs.toList()
+        val failures = selectedCatalogs.flatMap { catalog ->
             catalog.libraryAliases.mapNotNull { alias ->
                 val dependency = catalog.findLibrary(alias).get().get()
 
