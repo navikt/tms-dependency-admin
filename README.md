@@ -22,6 +22,130 @@ interface BibliotekDefaults: DependencyGroup {
     val dependencyTo get() = dependency("dependency-to")
 }
 ```
+### Ny organisering av dependencies
+
+Den nye løsningen bruker en publisert Gradle-versjonskatalog i stedet for å kopiere buildSrc-filer til hvert prosjekt.
+Dokumentasjonen for den gamle løsningen beholdes til alle prosjektene er migrert.
+
+Felles dependencies defineres i `gradle/libs.versions.toml`, med versjoner i `[versions]` og biblioteker i `[libraries]`:
+
+```toml
+[versions]
+bibliotek = "1.0.0"
+
+[libraries]
+bibliotek-en = { group = "no.nav.bibliotek", name = "dependency-en", version.ref = "bibliotek" }
+bibliotek-to = { group = "no.nav.bibliotek", name = "dependency-to", version = "2.0.0" }
+```
+
+Biblioteker som brukes sammen, kan samles i bundles. Legg for eksempel dette til i samme TOML-fil:
+```toml
+[bundles]
+bibliotek = ["bibliotek-en", "bibliotek-to"]
+```
+
+Katalogen legger ikke automatisk til dependencies i konsumentprosjektene. Hvert prosjekt velger selv
+hvilke biblioteker og bundles det trenger.
+
+### Bruk av dependencies
+
+Importer katalogen i konsumentens `settings.gradle.kts`. Erstatt `<<name>>` med ønsket katalognavn og
+`<<version>>` med en publisert versjon fra [releases](https://github.com/navikt/tms-dependency-admin/releases):
+```kotlin
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+        maven("https://github-package-registry-mirror.gc.nav.no/cached/maven-release")
+    }
+    versionCatalogs {
+        create("<<name>>") {
+            from("no.nav.tms:tms-dependency-admin:<<version>>")
+        }
+    }
+}
+```
+
+Katalognavnet bestemmer prefikset i `build.gradle.kts`. Hvis du velger `libs` som navn, kan du bruke
+aliasene slik (bindestreker i aliaser blir til punktum i Kotlin):
+
+```kotlin
+dependencies {
+    implementation(libs.jackson.moduleKotlin)
+    implementation(libs.bundles.flyway)
+    testImplementation(libs.mockk.default)
+    testImplementation(libs.junit.api)
+    testRuntimeOnly(libs.junit.engine)
+    testRuntimeOnly(libs.junit.launcher)
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
+```
+
+Bundles bruker samme syntaks, for eksempel `testImplementation(libs.bundles.kotest)`.
+En bundle velger ikke konfigurasjon for hvert bibliotek: alle innslag legges til konfigurasjonen den brukes med.
+Velg derfor biblioteker eller bundles som passer til `implementation`, `testImplementation` eller `testRuntimeOnly`.
+
+### Lokale tilpasninger
+
+Hvis prosjektet trenger egne dependencies, kan de defineres i prosjektets lokale `gradle/libs.versions.toml`.
+Gradle importerer denne filen automatisk som `libs`. Gi da den felles katalogen et annet navn i
+`create("<<name>>")` for å unngå navnekollisjon. Lokale dependencies brukes via `libs`, og felles dependencies
+via det valgte navnet. Ikke importer den lokale filen manuelt en gang til.
+
+For å overstyre en versjon fra `[versions]`, legg `version(...)` i katalogens eksisterende `create`-blokk
+under `dependencyResolutionManagement.versionCatalogs` i konsumentprosjektets `settings.gradle.kts`.
+For eksempel, for å overstyre Flyway-versjonen:
+
+```kotlin
+dependencyResolutionManagement {
+    versionCatalogs {
+        create("<<name>>") {
+            from("no.nav.tms:tms-dependency-admin:<<version>>")
+            version("flyway", "<<ønsket-flyway-versjon>>")
+        }
+    }
+}
+```
+
+Dette erstatter katalogblokken i importeksempelet; ikke opprett samme katalog to ganger. Behold repository-oppsettet.
+Overstyringen gjelder alle bibliotekene som bruker `version.ref = "flyway"`.
+
+Det er også mulig å overstyre bare ett bibliotek ved å definere det eksisterende aliaset på nytt med en egen versjon.
+Legg dette i samme `create("<<name>>")`-blokk i `settings.gradle.kts`, etter `from(...)`, i stedet for `version(...)`:
+
+```kotlin
+library("flyway-core", "org.flywaydb", "flyway-core")
+    .version("<<ønsket-flyway-versjon>>")
+```
+
+Dette endrer bare aliaset `flyway-core`, ikke de andre aliasene som bruker versjonsreferansen `flyway`.
+Det anbefales ikke å splitte versjonene for biblioteker som skal følge hverandre, som Flyway core og PostgreSQL-modulen.
+Hold normalt alle biblioteker som deler en versjonsreferanse på samme versjon, og overstyr heller referansen samlet.
+Ulike versjoner kan gi inkompatibilitet. Versjonskatalogen angir dessuten ønskede versjoner, men låser ikke resultatet
+av Gradles dependency resolution.
+
+### Distribuere dependencies
+
+Publiseringsworkflowen for `gradle/libs.versions.toml` verifiserer først at alle bibliotekaliasene kan resolves.
+Den kjører ikke tester eller bygg i konsumentprosjektene. Hvis verifiseringen feiler, publiseres ingen ny katalog.
+
+Katalogen publiseres som `no.nav.tms:tms-dependency-admin:<<version>>` til GitHub Packages, ikke Maven Central.
+Etter vellykket publisering opprettes en GitHub-release med samme versjon.
+Formatet er `YYYYMMDD.<run_number>.<run_attempt>`, for eksempel `20261026.5.1`, og er ikke semantisk versjonering.
+Publiseringen bruker workflowens `GITHUB_TOKEN`, ikke `API_ACCESS_TOKEN` fra den gamle distribusjonsløsningen.
+
+Verifiseringen kjøres også for pull requests som endrer katalogfilen, i merge queue og ved manuell kjøring av
+`Test-Catalog-Versioning`. Den kan kjøres lokalt med JDK 21:
+
+```shell
+./gradlew :dependency-verify:verifyVersionCatalogResolves
+```
+
+Konsumentene bruker en eksplisitt katalogversjon; en ny publisering oppdaterer dem ikke automatisk.
+Med Dependabot konfigurert for Gradle i konsumentprosjektet kan nye katalogversjoner foreslås som pull requests.
+Prosjektets egne bygg og tester må verifisere oppdateringen.
 
 Deretter legger du til et `object` i `buildSrc/src/main/kotlin/groups.kt` som peker på dette.
 

@@ -1,0 +1,28 @@
+version: 2
+updates:
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "08:00"
+    groups:
+      building-tools:
+        patterns:
+          - "com.diffplug.spotless*"
+          - "com.gradleup.shadow*"
+          - "gradle-wrapper"
+        database:
+          patterns:
+            - "com.zaxxer:*"
+            - "org.postgresql:*"
+            - "org.testcontainers:*"
+            - "org.flywaydb:*"
+        test:
+          patterns:
+            - "io.kotest:*"
+            - "io.mockk:*"
+            - "io.cucumber:*"
+            - "org.junit.platform:*"
+    cooldown:
+      default-days: 7
