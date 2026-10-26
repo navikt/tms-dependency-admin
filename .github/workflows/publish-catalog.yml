@@ -6,7 +6,6 @@ on:
       - feat-supported-by-dependabot-dependency-administration
     paths:
       - 'gradle/libs.versions.toml'
-      - 'additionalCatalogs/tms.utkast.versions.toml'
 
 jobs:
   publish-catalog:
@@ -16,51 +15,24 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v7
-      - uses: dorny/paths-filter@v3
-        id: changes
-        with:
-          base: ${{ github.ref_name }}
-          filters: |
-            default:
-              - 'gradle/libs.versions.toml'
-            utkast:
-              - 'additionalCatalogs/tms.utkast.versions.toml'
       - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: 21
       - uses: gradle/actions/setup-gradle@v6
+      - name: Verify version catalog
+        run: ./gradlew :dependency-verify:verifyVersionCatalogResolves
       - name: Set release version
-        id: release_version
         run: |
           TAG_NAME="$(TZ=Europe/Oslo date +%Y%m%d).${GITHUB_RUN_NUMBER}.${GITHUB_RUN_ATTEMPT}"
           echo "RELEASE_TAG=$TAG_NAME" >> "$GITHUB_ENV"
-      - name: Verify default catalog
-        id: verify_default
-        if: ${{ !cancelled() && steps.release_version.outcome == 'success' && steps.changes.outputs.default == 'true' }}
-        run: ./gradlew :dependency-verify:verifyVersionCatalogResolves -PcatalogToVerify=libs
-      - name: Publish default catalog
-        id: publish_default
-        if: ${{ !cancelled() && steps.verify_default.outcome == 'success' }}
+      - name: Publish catalog
         run: ./gradlew :publishMavenPublicationToGitHubPackagesRepository
         env:
           ORG_GRADLE_PROJECT_catalogVersion: ${{ env.RELEASE_TAG }}
           ORG_GRADLE_PROJECT_githubUsername: ${{ github.actor }}
           ORG_GRADLE_PROJECT_githubPassword: ${{ secrets.GITHUB_TOKEN }}
-      - name: Verify utkast catalog
-        id: verify_utkast
-        if: ${{ !cancelled() && steps.release_version.outcome == 'success' && steps.changes.outputs.utkast == 'true' }}
-        run: ./gradlew :dependency-verify:verifyVersionCatalogResolves -PcatalogToVerify=utkast
-      - name: Publish utkast catalog
-        id: publish_utkast
-        if: ${{ !cancelled() && steps.verify_utkast.outcome == 'success' }}
-        run: ./gradlew :utkast-catalog:publishMavenPublicationToGitHubPackagesRepository
-        env:
-          ORG_GRADLE_PROJECT_catalogVersion: ${{ env.RELEASE_TAG }}
-          ORG_GRADLE_PROJECT_githubUsername: ${{ github.actor }}
-          ORG_GRADLE_PROJECT_githubPassword: ${{ secrets.GITHUB_TOKEN }}
       - uses: ncipollo/release-action@339a81892b84b4eeb0f6e744e4574d79d0d9b8dd # ratchet:ncipollo/release-action@v1
-        if: ${{ !cancelled() && (steps.publish_default.outcome == 'success' || steps.publish_utkast.outcome == 'success') }}
         with:
           tag: ${{ env.RELEASE_TAG }}
           commit: ${{ github.sha }}
