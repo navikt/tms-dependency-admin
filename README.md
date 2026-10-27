@@ -2,27 +2,7 @@
 
 #### Dette prosjektet brukes til å definere og distribuere kotlin-dependencies for Team min-sides prosjekter 
 
-## Access token
-
-Dette repoet krever et github personal access-token med scopes `repo` og `workflow`. 
-
-Dette settes som en [actions-secret](https://github.com/navikt/tms-dependency-admin/settings/secrets/actions) i variablen `API_ACCESS_TOKEN`.
-
-
-## Organisering av dependencies
-
-Definer et sett med dependencies innen samme gruppe eller område som et interface i `buildSrc/src/main/kotlin/default/dependencies.kt`
-
-``` kotlin
-interface BibliotekDefaults: DependencyGroup {
-    override val groupId get() = "no.nav.bibliotek"
-    override val version get() = "1.0.0"
-
-    val dependencyEn get() = dependency("dependency-en")
-    val dependencyTo get() = dependency("dependency-to")
-}
-```
-### Ny organisering av dependencies
+### Organisering av dependencies
 
 Den nye løsningen bruker en publisert Gradle-versjonskatalog i stedet for å kopiere buildSrc-filer til hvert prosjekt.
 Dokumentasjonen for den gamle løsningen beholdes til alle prosjektene er migrert.
