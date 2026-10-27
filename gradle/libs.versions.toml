@@ -14,6 +14,7 @@ testContainer = "2.0.5"
 tmsCommonLib = "5.3.5"
 tmsKafkaTools = "2.5.1"
 tmsKtorSupport = "6.0.3"
+tmsJarBundling = "0.1.0"
 
 [libraries]
 
@@ -116,3 +117,4 @@ testContainers = [ "testContainers-core", "testContainers-junit", "testContainer
 [plugins]
 kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+tms-jarBundling = { id = "no.nav.tms.jarBundling", version.ref = "tmsJarBundling" }
