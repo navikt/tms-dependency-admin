@@ -18,7 +18,7 @@ bibliotek-en = { group = "no.nav.bibliotek", name = "dependency-en", version.ref
 bibliotek-to = { group = "no.nav.bibliotek", name = "dependency-to", version = "2.0.0" }
 ```
 
-Biblioteker som brukes sammen, kan samles i bundles. Legg for eksempel dette til i samme TOML-fil:
+Biblioteker som brukes sammen, kan samles i bundles.
 ```toml
 [bundles]
 bibliotek = ["bibliotek-en", "bibliotek-to"]
@@ -29,8 +29,10 @@ hvilke biblioteker og bundles det trenger.
 
 ### Bruk av dependencies
 
-Importer katalogen i konsumentens `settings.gradle.kts`. Erstatt `<<name>>` med ønsket katalognavn og
-`<<version>>` med en publisert versjon fra [releases](https://github.com/navikt/tms-dependency-admin/releases):
+Importer katalogen i konsumentens `settings.gradle.kts`. 
+`managed` er var konvensjon på katalognavn
+
+Erstatt `<<version>>` med en publisert versjon fra [releases](https://github.com/navikt/tms-dependency-admin/releases):
 ```kotlin
 dependencyResolutionManagement {
     repositories {
@@ -38,78 +40,51 @@ dependencyResolutionManagement {
         maven("https://github-package-registry-mirror.gc.nav.no/cached/maven-release")
     }
     versionCatalogs {
-        create("<<name>>") {
+        create("managed") {
             from("no.nav.tms:tms-dependency-admin:<<version>>")
         }
     }
 }
 ```
 
-Katalognavnet bestemmer prefikset i `build.gradle.kts`. Hvis du velger `libs` som navn, kan du bruke
-aliasene slik (bindestreker i aliaser blir til punktum i Kotlin):
+Bruke i build.gradle
 
 ```kotlin
 dependencies {
-    implementation(libs.jackson.moduleKotlin)
-    implementation(libs.bundles.flyway)
-    testImplementation(libs.mockk.default)
-    testImplementation(libs.junit.api)
-    testRuntimeOnly(libs.junit.engine)
-    testRuntimeOnly(libs.junit.launcher)
-}
-
-tasks.test {
-    useJUnitPlatform()
+    implementation(managed.jackson.moduleKotlin) //bibliotek
+    testRuntimeOnly(managed.bundles.bibliotek) //bundle
+    
 }
 ```
 
-Bundles bruker samme syntaks, for eksempel `testImplementation(libs.bundles.kotest)`.
-En bundle velger ikke konfigurasjon for hvert bibliotek: alle innslag legges til konfigurasjonen den brukes med.
-Velg derfor biblioteker eller bundles som passer til `implementation`, `testImplementation` eller `testRuntimeOnly`.
-
 ### Lokale tilpasninger
+* Uavhengige dependencies defineres i prosjektets lokale `gradle/libs.versions.toml`. Gradle importerer denne filen automatisk som `libs`. 
 
-Hvis prosjektet trenger egne dependencies, kan de defineres i prosjektets lokale `gradle/libs.versions.toml`.
-Gradle importerer denne filen automatisk som `libs`. Gi da den felles katalogen et annet navn i
-`create("<<name>>")` for å unngå navnekollisjon. Lokale dependencies brukes via `libs`, og felles dependencies
-via det valgte navnet. Ikke importer den lokale filen manuelt en gang til.
+#### Utvide og overstyre versjonering fra tms-dependency-admin
+Du kan endre på versjoner og legge til dependencies som skal dele versjon med andre moduler i selve versjonskatalogen i `create`-blokken  under `dependencyResolutionManagement.versionCatalogs` i ``
 
-For å overstyre en versjon fra `[versions]`, legg `version(...)` i katalogens eksisterende `create`-blokk
-under `dependencyResolutionManagement.versionCatalogs` i konsumentprosjektets `settings.gradle.kts`.
-For eksempel, for å overstyre Flyway-versjonen:
+* For å overstyre en versjon fra `[versions]`, legg til `version(<<versionnavn fra toml fil>>, <<ønkset versjon>>)` 
+* For å overstyre versjonen i ett av bibliotekene definerer du det eksisterende aliaset på nytt med en egen versjon. NB! Kun som unntak, vi vil i utgangspunktet at ting som hører sammen skal holde samme versjon
+* For å legge til en modul som er del av eksisterende avhengigheter legg til `library("navn-i-build-file","<<groupId>>","<<name>>").versionRef("<<versjon definert under [version] i tomlfila >>")`
 
 ```kotlin
 dependencyResolutionManagement {
     versionCatalogs {
         create("<<name>>") {
-            from("no.nav.tms:tms-dependency-admin:<<version>>")
-            version("flyway", "<<ønsket-flyway-versjon>>")
+            from("no.nav.tms:tms-dependency-admin:<<version>>") 
+            version("flyway", "9.0.0") //setter flyway versjonen for prosjektet til 9.0.0
+            library("flyway-core", "flyway-noe-annet")
+                .version("13.0.0") //overstyrer versjonen til pakkene flyway-core og flyway-noe-annet til 13.0.0
+            library("jackson-databind","com.fasterxml","jackson-databind").versionRef("jacksonDatatype") // oppretter nye dependencues med versjonen av jacksonDatatype fra toml-fila
         }
     }
 }
 ```
 
-Dette erstatter katalogblokken i importeksempelet; ikke opprett samme katalog to ganger. Behold repository-oppsettet.
-Overstyringen gjelder alle bibliotekene som bruker `version.ref = "flyway"`.
-
-Det er også mulig å overstyre bare ett bibliotek ved å definere det eksisterende aliaset på nytt med en egen versjon.
-Legg dette i samme `create("<<name>>")`-blokk i `settings.gradle.kts`, etter `from(...)`, i stedet for `version(...)`:
-
-```kotlin
-library("flyway-core", "org.flywaydb", "flyway-core")
-    .version("<<ønsket-flyway-versjon>>")
-```
-
-Dette endrer bare aliaset `flyway-core`, ikke de andre aliasene som bruker versjonsreferansen `flyway`.
-Det anbefales ikke å splitte versjonene for biblioteker som skal følge hverandre, som Flyway core og PostgreSQL-modulen.
-Hold normalt alle biblioteker som deler en versjonsreferanse på samme versjon, og overstyr heller referansen samlet.
-Ulike versjoner kan gi inkompatibilitet. Versjonskatalogen angir dessuten ønskede versjoner, men låser ikke resultatet
-av Gradles dependency resolution.
-
 ### Distribuere dependencies
 
 Publiseringsworkflowen for `gradle/libs.versions.toml` verifiserer først at alle bibliotekaliasene kan resolves.
-Den kjører ikke tester eller bygg i konsumentprosjektene. Hvis verifiseringen feiler, publiseres ingen ny katalog.
+Den kjører ikke tester eller bygg i konsumentprosjektene. Hvis verifiseringen feiler, publiseres ikke katalogen.
 
 Katalogen publiseres som `no.nav.tms:tms-dependency-admin:<<version>>` til GitHub Packages, ikke Maven Central.
 Etter vellykket publisering opprettes en GitHub-release med samme versjon.
@@ -127,65 +102,6 @@ Konsumentene bruker en eksplisitt katalogversjon; en ny publisering oppdaterer d
 Med Dependabot konfigurert for Gradle i konsumentprosjektet kan nye katalogversjoner foreslås som pull requests.
 Prosjektets egne bygg og tester må verifisere oppdateringen.
 
-Deretter legger du til et `object` i `buildSrc/src/main/kotlin/groups.kt` som peker på dette.
-
-``` kotlin
-object Bibliotek: BibliotekDefaults
-```
-
-Dette objektet brukes i andre prosjekters `build.gradke.kts`-fil.
-
-```kotlin
-dependencies {
-  implementation(Bibliotek.dependencyEn)
-  implementation(Bibliotek.dependencyTo)
-}
-```
-
-Dersom en ønsker en bestemt versjon av en distribuert dependency, eller ønsker helt andre dependencies, kan man legge
-til dette i en egen fil i sin egen buildSrc.
-
-Her er et eksempel der en overstyrer versjon, legger til en ekstra dependency innen en gruppe, og legger til en helt ny gruppe.
-
-fil: `buildSrc/src/main/kotlin/groupsCustom.kt`
-```kotlin
-object Bibliotek_V2: BibliotekDefaults { 
-  override val version = "2.0.0"
-  
-  val dependencyTre = dependency("dependency-tre")
-}
-
-object AnnetLib {
-    val dependencyABC = "com.domain:abc:1.0.0"
-}
-```
-
-Og brukes slik:
-```kotlin
-dependencies {
-  implementation(Bibliotek_V2.dependencyEn)
-  implementation(Bibliotek_v2.dependencyTo)
-  implementation(Bibliotek_v2.dependencyTre)
-  implementation(AnnetLib.dependencyABC)
-}
-```
-
-## Distribusjon
-
-Dependency-config distribueres til alle apper definert i `config/managed_apps.conf` når det gjøres endringer i
-`buildSrc/src/main/kotlin/default/dependencies.kt` eller `buildSrc/src/main/kotlin/groups.kt`. Endringene plasseres på
-en egen branch i mål-prosjektet, og trigger et workflow som verifiserer at endringene ikke brekker bygg, og så merger til main.
-
-Denne workflowen vil også distribueres til de enkelte prosjektene dersom de ikke har den, eller ikke har nyeste versjon.
-
-Dersom en ønsker å publisere dependencies til ett bestemt prosjekt kan en bruke workflow-dispatch. Dette prosjektet trenger ikke
-være i `managed_apps.conf`
-
-## Snyk
-
-Dependencies som distribueres herfra scannes av Snyk hver dag, som finnes potensielle problemer og svakheter. 
-
-Resultat av scan finner en på [snyk-dashboard](https://app.snyk.io/org/min-side/project/892828c4-26f8-4a18-be25-7f37aa4e9574).
 
 # Henvendelser
 
