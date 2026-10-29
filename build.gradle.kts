@@ -2,7 +2,7 @@ import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import java.net.URI
 
 plugins {
-    kotlin("jvm").version(Kotlin.version)
+    kotlin("jvm").version(libs.versions.kotlin)
     `version-catalog`
     `kotlin-dsl`
     `maven-publish`
