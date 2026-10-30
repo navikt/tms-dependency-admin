@@ -46,7 +46,7 @@ updates:
           - "org.testcontainers:*"
       internal:
         patterns:
-          - "no.nav.tms:*"
+          - "no.nav.tms*"
       plugins:
         patterns:
           - "org.jetbrains.kotlin.jvm*"
