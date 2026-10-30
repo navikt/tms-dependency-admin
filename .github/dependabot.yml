@@ -12,17 +12,27 @@ updates:
           - "com.diffplug.spotless*"
           - "com.gradleup.shadow*"
           - "gradle-wrapper"
+          - "io.ktor"
       database:
         patterns:
           - "com.zaxxer:*"
           - "org.postgresql:*"
           - "org.testcontainers:*"
           - "org.flywaydb:*"
+          - "io.prometheus:*"
+          - "io.micrometer:*"
+          - "ch.qos.logback:*"
+          - "net.logstash.logback:*"
       test:
         patterns:
           - "io.kotest:*"
           - "io.mockk:*"
           - "io.cucumber:*"
           - "org.junit.platform:*"
+          - "otg.testcontainers:*"
+          - "io.mockk"
+      tms:
+        patterns:
+          - "no.nav.tms:*"
     cooldown:
       default-days: 7
