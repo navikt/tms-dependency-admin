@@ -12,17 +12,46 @@ updates:
           - "com.diffplug.spotless*"
           - "com.gradleup.shadow*"
           - "gradle-wrapper"
+          - "io.ktor:*"
+          - "com.github.serarth:*"
+          - "org.jetbrains.kotlin:*"
+          - "io.github.oshai:*"
+          - "org.jetbrains.kotlinx*"
       database:
         patterns:
           - "com.zaxxer:*"
           - "org.postgresql:*"
           - "org.testcontainers:*"
           - "org.flywaydb:*"
+          - "io.prometheus:*"
+          - "io.mockk:*"
+          - "io.micrometer:*"
+          - "org.apache.*"
+      logging:
+        patterns:
+          - "org.slf4j:*"
+          - "ch.qos.logback:*"
+          - "net.logstash.logback:*"
+      jsonTools:
+        patterns:
+          - "org.junit.jupiter:*"
+          - "io.jsonwebtoken:*"
+          - "com.fasterxml.jackson*"
       test:
         patterns:
           - "io.kotest:*"
           - "io.mockk:*"
           - "io.cucumber:*"
           - "org.junit.platform:*"
+          - "org.testcontainers:*"
+      internal:
+        patterns:
+          - "no.nav.tms:*"
+      plugins:
+        patterns:
+          - "org.jetbrains.kotlin.jvm*"
+          - "org.jetbrains.kotlin.plugin*"
+          - "no.nav.tms.jarBundling*"
     cooldown:
       default-days: 7
+       # TODO add labels for easier filtering and understanding of PRs
