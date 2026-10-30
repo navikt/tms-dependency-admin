@@ -96,14 +96,17 @@ dependencies {
     implementation(KotlinLogging.logging)
     implementation(KotliQuery.kotliquery)
     implementation(Logstash.logbackEncoder)
-    //TODO
-    //implementation(TmsCommonLib.metrics)
-    //implementation(TmsCommonLib.utils)
-    //implementation(TmsKafkaTools.kafkaApplication)
-    //implementation(TmsKtorTokenSupport.tokenXValidation)
-    //implementation(TmsKtorTokenSupport.tokendingsExchange)
-    //implementation(TmsKtorTokenSupport.azureExchange)
-    //implementation(TmsKtorTokenSupport.azureValidation)
+
+    implementation(TmsCommonLib.metrics)
+    implementation(TmsCommonLib.utils)
+    implementation(TmsKafkaTools.kafkaApplication)
+    implementation(TmsKtorTokenSupport.entraIdTokenVerification)
+    implementation(TmsKtorTokenSupport.entraIdTokenVerificationMock)
+    implementation(TmsKtorTokenSupport.entraIdTokenFetcher)
+    implementation(TmsKtorTokenSupport.userLoginRoutes)
+    implementation(TmsKtorTokenSupport.userTokenVerification)
+    implementation(TmsKtorTokenSupport.userTokenVerificationMock)
+    implementation(TmsKtorTokenSupport.userTokenExchange)
 
 
     testImplementation(TestContainers.testContainers)
