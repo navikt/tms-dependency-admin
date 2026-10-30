@@ -71,7 +71,7 @@ ktor-test-server = { group = "io.ktor", name = "ktor-server-test-host", version.
 logback-classic = { group = "ch.qos.logback", name = "logback-classic", version = "1.6.5" }
 logback-encoder = { group = "net.logstash.logback", name = "logstash-logback-encoder", version = "9.0" }
 
-micrometer-registry-prometheus = { group = "io.micrometer", name = "micrometer-registry-prometheus", version = "1.17.1" }
+micrometer-registry-prometheus = { group = "io.micrometer", name = "micrometer-registry-prometheus", version = "1.17.2" }
 
 mockk = { group = "io.mockk", name = "mockk", version = "1.14.11" }
 
