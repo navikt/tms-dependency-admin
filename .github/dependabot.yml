@@ -1,7 +1,15 @@
 version: 2
+
+registries:
+  nav-maven:
+    type: maven-repository
+    url: https://github-package-registry-mirror.gc.nav.no/cached/maven-release
+
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
+    registries:
+      - nav-maven
     schedule:
       interval: "weekly"
     groups:
@@ -10,6 +18,8 @@ updates:
           - "*"
     cooldown:
       default-days: 3
+    labels:
+      - github-actions
 
   - package-ecosystem: "gradle"
     directory: "/"
@@ -24,6 +34,9 @@ updates:
           - "com.gradleup.shadow*"
           - "gradle-wrapper"
           - "io.ktor"
+        update-types:
+          - "minor"
+          - "patch"
       database:
         patterns:
           - "com.zaxxer:*"
@@ -34,16 +47,30 @@ updates:
           - "io.micrometer:*"
           - "ch.qos.logback:*"
           - "net.logstash.logback:*"
+        update-types:
+          - "minor"
+          - "patch"
       test:
         patterns:
           - "io.kotest:*"
           - "io.mockk:*"
           - "io.cucumber:*"
           - "org.junit.platform:*"
-          - "otg.testcontainers:*"
+          - "org.testcontainers:*"
           - "io.mockk"
+        update-types:
+          - "minor"
+          - "patch"
+      gradle-major:
+        patterns:
+          - "*"
+        update-types:
+          - "major"
       tms:
         patterns:
           - "no.nav.tms:*"
+    labels:
+      - gradle
+      - dependencies
     cooldown:
       default-days: 7
