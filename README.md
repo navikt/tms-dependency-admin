@@ -36,12 +36,11 @@ Erstatt `<<version>>` med en publisert versjon fra [releases](https://github.com
 ```kotlin
 dependencyResolutionManagement {
     repositories {
-        mavenCentral()
         maven("https://github-package-registry-mirror.gc.nav.no/cached/maven-release")
-    }
-    versionCatalogs {
-        create("managed") {
-            from("no.nav.tms:tms-dependency-admin:<<version>>")
+        versionCatalogs {
+            create("managed") {
+                from("no.nav.tms:tms-dependency-admin:<<version>>")
+            }
         }
     }
 }

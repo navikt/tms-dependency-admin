@@ -6,6 +6,19 @@ registries:
     url: https://github-package-registry-mirror.gc.nav.no/cached/maven-release
 
 updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+    cooldown:
+      default-days: 3
+    labels:
+      - github-actions
+
   - package-ecosystem: "gradle"
     directory: "/"
     registries:
@@ -15,51 +28,67 @@ updates:
       day: "monday"
       time: "08:00"
     groups:
-      building-tools:
+      runtime-libs:
         patterns:
           - "com.diffplug.spotless*"
           - "com.gradleup.shadow*"
           - "gradle-wrapper"
           - "io.ktor:*"
-          - "com.github.serarth:*"
+          - "com.github.seratch:*"
           - "org.jetbrains.kotlin:*"
           - "io.github.oshai:*"
           - "org.jetbrains.kotlinx*"
-      database:
-        patterns:
           - "com.zaxxer:*"
           - "org.postgresql:*"
-          - "org.testcontainers:*"
           - "org.flywaydb:*"
           - "io.prometheus:*"
-          - "io.mockk:*"
           - "io.micrometer:*"
-          - "org.apache.*"
-      logging:
-        patterns:
-          - "org.slf4j:*"
           - "ch.qos.logback:*"
           - "net.logstash.logback:*"
-      jsonTools:
-        patterns:
+          - "org.apache.*"
+          - "org.slf4j:*"
           - "org.junit.jupiter:*"
           - "io.jsonwebtoken:*"
           - "com.fasterxml.jackson*"
-      test:
+        update-types:
+          - "minor"
+          - "patch"
+
+      test-libs:
         patterns:
           - "io.kotest:*"
           - "io.mockk:*"
           - "io.cucumber:*"
           - "org.junit.platform:*"
           - "org.testcontainers:*"
-      internal:
-        patterns:
-          - "no.nav.tms*"
-      plugins:
+          - "io.mockk"
+        update-types:
+          - "minor"
+          - "patch"
+
+      plugins-libs:
         patterns:
           - "org.jetbrains.kotlin.jvm*"
           - "org.jetbrains.kotlin.plugin*"
           - "no.nav.tms.jarBundling*"
+        update-types:
+          - "minor"
+          - "patch"
+      tms-libs:
+        patterns:
+          - "no.nav.tms*:*"
+        update-types:
+          - "minor"
+          - "patch"
+
+      gradle-major:
+        patterns:
+          - "*"
+        update-types:
+          - "major"
+
+    labels:
+      - gradle
+      - dependencies
     cooldown:
       default-days: 7
-       # TODO add labels for easier filtering and understanding of PRs
