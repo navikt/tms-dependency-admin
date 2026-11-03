@@ -8,8 +8,6 @@ registries:
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
-    registries:
-      - nav-maven
     schedule:
       interval: "weekly"
     groups:
@@ -23,6 +21,8 @@ updates:
 
   - package-ecosystem: "gradle"
     directory: "/"
+    registries:
+      - nav-maven
     schedule:
       interval: "weekly"
       day: "monday"
@@ -34,13 +34,12 @@ updates:
           - "com.gradleup.shadow*"
           - "gradle-wrapper"
           - "io.ktor:*"
-          - "com.github.serarth:*"
+          - "com.github.seratch:*"
           - "org.jetbrains.kotlin:*"
           - "io.github.oshai:*"
           - "org.jetbrains.kotlinx*"
           - "com.zaxxer:*"
           - "org.postgresql:*"
-          - "org.testcontainers:*"
           - "org.flywaydb:*"
           - "io.prometheus:*"
           - "io.micrometer:*"
@@ -48,8 +47,6 @@ updates:
           - "net.logstash.logback:*"
           - "org.apache.*"
           - "org.slf4j:*"
-          - "ch.qos.logback:*"
-          - "net.logstash.logback:*"
           - "org.junit.jupiter:*"
           - "io.jsonwebtoken:*"
           - "com.fasterxml.jackson*"
@@ -79,7 +76,7 @@ updates:
           - "patch"
       tms-libs:
         patterns:
-          - "no.nav.tms:*"
+          - "no.nav.tms*:*"
         update-types:
           - "minor"
           - "patch"
