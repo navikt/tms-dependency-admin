@@ -47,6 +47,8 @@ updates:
           - "org.slf4j:*"
           - "org.junit.jupiter:*"
           - "com.fasterxml.jackson*"
+          - "com.github.ben-manes.caffeine:*"
+          - "com.expediagroup:*"
         update-types:
           - "minor"
           - "patch"
