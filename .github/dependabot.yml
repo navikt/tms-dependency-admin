@@ -28,17 +28,16 @@ updates:
       day: "monday"
       time: "08:00"
     groups:
-      building-tools:
+      runtime-libs:
         patterns:
           - "com.diffplug.spotless*"
           - "com.gradleup.shadow*"
           - "gradle-wrapper"
-          - "io.ktor"
-        update-types:
-          - "minor"
-          - "patch"
-      database:
-        patterns:
+          - "io.ktor:*"
+          - "com.github.serarth:*"
+          - "org.jetbrains.kotlin:*"
+          - "io.github.oshai:*"
+          - "org.jetbrains.kotlinx*"
           - "com.zaxxer:*"
           - "org.postgresql:*"
           - "org.testcontainers:*"
@@ -47,10 +46,18 @@ updates:
           - "io.micrometer:*"
           - "ch.qos.logback:*"
           - "net.logstash.logback:*"
+          - "org.apache.*"
+          - "org.slf4j:*"
+          - "ch.qos.logback:*"
+          - "net.logstash.logback:*"
+          - "org.junit.jupiter:*"
+          - "io.jsonwebtoken:*"
+          - "com.fasterxml.jackson*"
         update-types:
           - "minor"
           - "patch"
-      test:
+
+      test-libs:
         patterns:
           - "io.kotest:*"
           - "io.mockk:*"
@@ -61,14 +68,28 @@ updates:
         update-types:
           - "minor"
           - "patch"
+
+      plugins-libs:
+        patterns:
+          - "org.jetbrains.kotlin.jvm*"
+          - "org.jetbrains.kotlin.plugin*"
+          - "no.nav.tms.jarBundling*"
+        update-types:
+          - "minor"
+          - "patch"
+      tms-libs:
+        patterns:
+          - "no.nav.tms:*"
+        update-types:
+          - "minor"
+          - "patch"
+
       gradle-major:
         patterns:
           - "*"
         update-types:
           - "major"
-      tms:
-        patterns:
-          - "no.nav.tms:*"
+
     labels:
       - gradle
       - dependencies
