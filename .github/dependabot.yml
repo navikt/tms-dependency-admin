@@ -30,8 +30,6 @@ updates:
     groups:
       runtime-libs:
         patterns:
-          - "com.diffplug.spotless*"
-          - "com.gradleup.shadow*"
           - "gradle-wrapper"
           - "io.ktor:*"
           - "com.github.seratch:*"
@@ -48,8 +46,9 @@ updates:
           - "org.apache.*"
           - "org.slf4j:*"
           - "org.junit.jupiter:*"
-          - "io.jsonwebtoken:*"
           - "com.fasterxml.jackson*"
+          - "com.github.ben-manes.caffeine:*"
+          - "com.expediagroup:*"
         update-types:
           - "minor"
           - "patch"
@@ -58,7 +57,6 @@ updates:
         patterns:
           - "io.kotest:*"
           - "io.mockk:*"
-          - "io.cucumber:*"
           - "org.junit.platform:*"
           - "org.testcontainers:*"
           - "io.mockk"
