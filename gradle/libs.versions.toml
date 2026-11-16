@@ -78,7 +78,7 @@ logback-encoder = { group = "net.logstash.logback", name = "logstash-logback-enc
 
 micrometer-registryPrometheus = { group = "io.micrometer", name = "micrometer-registry-prometheus", version = "1.17.2" }
 
-mockk = { group = "io.mockk", name = "mockk", version = "1.14.11" }
+mockk = { group = "io.mockk", name = "mockk", version = "1.14.12" }
 
 postgresql = { group = "org.postgresql", name = "postgresql", version = "42.7.14" }
 
