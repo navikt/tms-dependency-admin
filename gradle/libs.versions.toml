@@ -69,6 +69,7 @@ ktor-client-apache5 = { group = "io.ktor", name = "ktor-client-apache5", version
 ktor-client-contentNegotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 
 ktor-serialization-jackson = { group = "io.ktor", name = "ktor-serialization-jackson", version.ref = "ktor" }
+ktor-serialization-kotlinx = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
 ktor-test-clientMock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
 ktor-test-server = { group = "io.ktor", name = "ktor-server-test-host", version.ref = "ktor" }
