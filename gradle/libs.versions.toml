@@ -9,7 +9,7 @@ hikariCP = "7.1.0"
 jacksonDatatype = "2.22.4"
 jacksonAnnotations = "2.22"
 junitJupiter = "6.1.3"
-kotest = "6.2.6"
+kotest = "6.2.7"
 kotlin = "2.4.21"
 ktor = "3.6.1"
 prometheus = "1.10.0"
@@ -79,7 +79,7 @@ logback-encoder = { group = "net.logstash.logback", name = "logstash-logback-enc
 
 micrometer-registryPrometheus = { group = "io.micrometer", name = "micrometer-registry-prometheus", version = "1.17.2" }
 
-mockk = { group = "io.mockk", name = "mockk", version = "1.14.11" }
+mockk = { group = "io.mockk", name = "mockk", version = "1.14.12" }
 
 postgresql = { group = "org.postgresql", name = "postgresql", version = "42.7.14" }
 
