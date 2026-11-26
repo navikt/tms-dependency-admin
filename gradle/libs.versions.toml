@@ -122,5 +122,6 @@ graphql = [ "graphql-client", "graphql-ktorClient" ]
 
 [plugins]
 kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+serialization =  { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 tms-jarBundling = { id = "no.nav.tms.jarBundling", version.ref = "tmsJarBundling" }
 graphql = { id = "com.expediagroup.graphql", version.ref = "graphql" }
